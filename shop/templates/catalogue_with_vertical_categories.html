@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load upper from currency_filter %}
+{% load breadcrumb from navigation %}
+{% load vertical_menu from navigation %}
+
+{% block breadcrumbs %}
+  {% breadcrumb path=breadcrumbPath token=currentCategory %}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="products-grid col-xl-9 col-lg-8 order-lg-2">
+      <div class="row">
+
+        {% for product in products %}
+          <div class="col-xl-4 col-sm-6">
+            <div class="product">
+              <div class="product-image">
+                <img src="https://d19m59y37dris4.cloudfront.net/sell/1-2-1/img/product/kyle-loftus-590881-unsplash.jpg"
+                     alt="product" class="img-fluid">
+                <div class="product-hover-overlay"><a href="/" class="product-hover-overlay-link"></a>
+                  <div class="product-hover-overlay-buttons">
+                    <a href="#" class="btn btn-outline-dark btn-product-left"><i
+                            class="fa fa-shopping-cart"></i>
+                    </a>
+                    <a href="/" class="btn btn-dark btn-buy"><i
+                            class="fa-search fa"></i>
+                      <span class="btn-buy-label ml-2">Перегляд</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="py-2">
+                <p class="text-muted text-sm mb-1">{{ product.product_name }}</p>
+                <h3 class="h6 text-uppercase mb-1">
+                  <a href="/" class="text-dark">{{ product.product_description }}</a></h3>
+                <span class="text-muted">{{ product.product_price }} {{ product.product_currency | upper }}.</span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+      <nav aria-label="page navigation" class="d-flex justify-content-center mb-5 mt-3">
+        <ul class="pagination">
+          <li class="page-item"><a href="#" aria-label="Previous" class="page-link"><span aria-hidden="true">Prev</span><span
+                  class="sr-only">Previous</span></a></li>
+          <li class="page-item active"><a href="#" class="page-link">1 </a></li>
+          <li class="page-item"><a href="#" class="page-link">2 </a></li>
+          <li class="page-item"><a href="#" class="page-link">3 </a></li>
+          <li class="page-item"><a href="#" class="page-link">4 </a></li>
+          <li class="page-item"><a href="#" class="page-link">5 </a></li>
+          <li class="page-item"><a href="#" aria-label="Next" class="page-link">
+            <span aria-hidden="true">Next</span><span class="sr-only">Next     </span>
+          </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    {#    SIDEBAR  #}
+
+    <div class="sidebar col-xl-3 col-lg-4 order-lg-1">
+      <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
+        <a data-toggle="collapse" href="#categoriesMenu"
+           aria-expanded="false" aria-controls="categoriesMenu"
+           class="d-lg-none block-toggler">Product Categories</a>
+
+        <div id="categoriesMenu" class="expand-lg collapse">
+          {% vertical_menu items=verticalCategoriesTree current_category=currentCategory %}
+        </div>
+
+      </div>
+
+      <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
+        <a data-toggle="collapse" href="#priceFilterMenu"
+           aria-expanded="false" aria-controls="priceFilterMenu"
+           class="d-lg-none block-toggler">Filter by price</a>
+        <div id="priceFilterMenu" class="expand-lg collapse">
+          <h6 class="sidebar-heading d-none d-lg-block">Price </h6>
+          <div id="slider-snap" class="mt-4 mt-lg-0 noUi-target noUi-ltr noUi-horizontal">
+            <div class="noUi-base">
+              <div class="noUi-connects">
+                <div class="noUi-connect" style="transform: translate(16%, 0px) scale(0.28, 1);"></div>
+              </div>
+              <div class="noUi-origin" style="transform: translate(-84%, 0px); z-index: 5;">
+                <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider"
+                     aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="44.0" aria-valuenow="16.0"
+                     aria-valuetext="40.00"></div>
+              </div>
+              <div class="noUi-origin" style="transform: translate(-56%, 0px); z-index: 6;">
+                <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider"
+                     aria-orientation="horizontal" aria-valuemin="16.0" aria-valuemax="100.0" aria-valuenow="44.0"
+                     aria-valuetext="110.00"></div>
+              </div>
+            </div>
+          </div>
+          <div class="nouislider-values">
+            <div class="min">From $<span id="slider-snap-value-lower">40.00</span></div>
+            <div class="max">To $<span id="slider-snap-value-upper">110.00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
+        <a data-toggle="collapse" href="#brandFilterMenu"
+           aria-expanded="true" aria-controls="brandFilterMenu"
+           class="d-lg-none block-toggler">Filter by brand</a>
+        <!-- Brand filter menu - this menu has .show class, so is expanded by default-->
+        <div id="brandFilterMenu" class="expand-lg collapse show">
+          <h6 class="sidebar-heading d-none d-lg-block">Brands </h6>
+          <form action="#" class="mt-4 mt-lg-0">
+            <div class="form-group mb-1">
+              <div class="custom-control custom-checkbox">
+                <input id="brand0" type="checkbox" name="clothes-brand" checked="" class="custom-control-input">
+                <label for="brand0" class="custom-control-label">Calvin Klein
+                  <small>(18)</small>
+                </label>
+              </div>
+            </div>
+            <div class="form-group mb-1">
+              <div class="custom-control custom-checkbox">
+                <input id="brand1" type="checkbox" name="clothes-brand" checked="" class="custom-control-input">
+                <label for="brand1" class="custom-control-label">Levi Strauss
+                  <small>(30)</small>
+                </label>
+              </div>
+            </div>
+            <div class="form-group mb-1">
+              <div class="custom-control custom-checkbox">
+                <input id="brand2" type="checkbox" name="clothes-brand" class="custom-control-input">
+                <label for="brand2" class="custom-control-label">Hugo Boss
+                  <small>(120)</small>
+                </label>
+              </div>
+            </div>
+            <div class="form-group mb-1">
+              <div class="custom-control custom-checkbox">
+                <input id="brand3" type="checkbox" name="clothes-brand" class="custom-control-input">
+                <label for="brand3" class="custom-control-label">Tomi Hilfiger
+                  <small>(70)</small>
+                </label>
+              </div>
+            </div>
+            <div class="form-group mb-1">
+              <div class="custom-control custom-checkbox">
+                <input id="brand4" type="checkbox" name="clothes-brand" class="custom-control-input">
+                <label for="brand4" class="custom-control-label">Tom Ford
+                  <small>(110)</small>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,1 @@
+NAVIGATION_CONTEXT_NAME = 'menus'

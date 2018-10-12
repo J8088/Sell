@@ -1,0 +1,12 @@
+.idea
+.vscode
+.DS_Store
+*.pyc
+settings_*.py
+/.project
+/build
+/dist
+/venv
+run_detached*.py
+populate_db_with_*.py
+/wip

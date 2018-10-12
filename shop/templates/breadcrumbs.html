@@ -1,0 +1,11 @@
+<div class="container">
+  <ol class="breadcrumb justify-content-center">
+    {% for crumb in breadcrumbs %}
+      {% if crumb.url %}
+        <li class="breadcrumb-item"><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
+      {% else %}
+        <li class="breadcrumb-item active">{{ crumb.name }}</li>
+      {% endif %}
+    {% endfor %}
+  </ol>
+</div>

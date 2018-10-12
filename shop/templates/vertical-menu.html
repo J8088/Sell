@@ -1,0 +1,19 @@
+{% load vertical_menu from navigation %}
+
+<div class="nav nav-pills flex-column {% if child %} ml-3 {% else %} mt-4 mt-lg-0 {% endif %}">
+
+  {% for category in menu_items %}
+    <a href="/{{ category.node.category_code }}/"
+       class="nav-link {% if not child %} d-flex justify-content-between {% endif %} mb-2 ">
+
+      <span>{{ category.node.category_name }}</span>
+
+      {% if not child %}
+        <span class="sidebar-badge"> 120</span>
+      {% endif %}
+    </a>
+    {% if category.children %}
+      {% vertical_menu items=category.children current_category=currentCategory child=True %}
+    {% endif %}
+  {% endfor %}
+</div>

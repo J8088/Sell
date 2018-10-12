@@ -1,0 +1,108 @@
+{% load static %}
+{% load horizontal_menu from navigation %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {#  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"#}
+  {#        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">#}
+  <link rel="stylesheet" href="{% static "css/bootstrap/bootstrap.css" %}">
+  <link rel="stylesheet" href="{% static "css/bootstrap/bootstrap-grid.css" %}">
+  <link rel="stylesheet" href="{% static "css/bootstrap/bootstrap-reboot.css" %}">
+  <link rel="stylesheet" href="{% static "css/main.css" %}">
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/solid.css"
+        integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/regular.css"
+        integrity="sha384-avJt9MoJH2rB4PKRsJRHZv7yiFZn8LrnXuzvmZoD3fh1aL6aM6s0BBcnCvBe6XSD" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/brands.css"
+        integrity="sha384-7xAnn7Zm3QC1jFjVc1A6v/toepoG3JXboQYzbM0jrPzou9OFXm/fY6Z/XiIebl/k" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css"
+        integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
+
+
+  {% if title %}
+    <title>{{ title }}</title>
+  {% else %}
+    <title>Sell</title>
+  {% endif %}
+</head>
+<body>
+{% block header %}
+  <header class="top-header">
+    <div class="top-bar">
+      <div class="container-fluid">
+        <div class="row d-flex">
+          <div class="col-sm-7">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item pr-3 mr-0">
+                <div class="d-flex">
+                  <div class="svg-icon mr-2">
+                    <img src="{% static "img/phone.svg" %}" alt=""/>
+                  </div>
+                  <div>095-200-94-28</div>
+                </div>
+              </li>
+              <li class="list-inline-item px-3 border-left d-none d-lg-inline-block">
+                text
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-5 d-flex justify-content-end">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="mainNavBar"
+         class="navbar navbar-expand-lg navbar-sticky navbar-airy navbar-light bg-white bg-fixed-white">
+      <div class="container-fluid">
+        <div class="navbar-brand">
+          <a href="/">
+            <img src="{% static "img/sell.svg" %}" alt="">
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+
+          {% horizontal_menu items=categories current_category=currentCategory%}
+
+          <div class="d-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
+            <div data-toggle="search" class="d-flex align-items-center nav-item navbar-icon-link">
+              <i class="fa fa-search"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="header">
+
+    {% block breadcrumbs %}{% endblock %}
+
+  </section>
+{% endblock header %}
+<div class="container">
+  {% block content %}{% endblock content %}
+</div>
+
+
+<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+<script src="{% static "js/popper.min.js" %}"></script>
+<script src="{% static "js/bootstrap/bootstrap.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+
+{#<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"#}
+{#        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"#}
+{#        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"#}
+{#        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"#}
+{#        crossorigin="anonymous"></script>#}
+
+</body>
+</html>
