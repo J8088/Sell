@@ -15,6 +15,15 @@ def vertical_menu(context, items, current_category, child=None):
     return {'menu_items': items, 'current_category': current_category, 'child': child}
 
 
+@register.inclusion_tag('vertical_filters.html', takes_context=True)
+def vertical_filters(context, items, current_category, current_filters=None):
+    if current_filters is None:
+        current_filters = []
+    return {'filters': items,
+            'current_category': current_category,
+            'current_filters': current_filters}
+
+
 @register.inclusion_tag('breadcrumbs.html', takes_context=True)
 def breadcrumb(context, path, token):
     breadcrumbs = [

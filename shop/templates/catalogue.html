@@ -2,6 +2,7 @@
 {% load upper from currency_filter %}
 {% load breadcrumb from navigation %}
 {% load vertical_menu from navigation %}
+{% load vertical_filters from navigation %}
 
 {% block breadcrumbs %}
   {% breadcrumb path=breadcrumbPath token=currentCategory %}
@@ -72,87 +73,8 @@
 
       </div>
 
-      <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
-        <a data-toggle="collapse" href="#priceFilterMenu"
-           aria-expanded="false" aria-controls="priceFilterMenu"
-           class="d-lg-none block-toggler">Filter by price</a>
-        <div id="priceFilterMenu" class="expand-lg collapse">
-          <h6 class="sidebar-heading d-none d-lg-block">Price </h6>
-          <div id="slider-snap" class="mt-4 mt-lg-0 noUi-target noUi-ltr noUi-horizontal">
-            <div class="noUi-base">
-              <div class="noUi-connects">
-                <div class="noUi-connect" style="transform: translate(16%, 0px) scale(0.28, 1);"></div>
-              </div>
-              <div class="noUi-origin" style="transform: translate(-84%, 0px); z-index: 5;">
-                <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider"
-                     aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="44.0" aria-valuenow="16.0"
-                     aria-valuetext="40.00"></div>
-              </div>
-              <div class="noUi-origin" style="transform: translate(-56%, 0px); z-index: 6;">
-                <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider"
-                     aria-orientation="horizontal" aria-valuemin="16.0" aria-valuemax="100.0" aria-valuenow="44.0"
-                     aria-valuetext="110.00"></div>
-              </div>
-            </div>
-          </div>
-          <div class="nouislider-values">
-            <div class="min">From $<span id="slider-snap-value-lower">40.00</span></div>
-            <div class="max">To $<span id="slider-snap-value-upper">110.00</span></div>
-          </div>
-        </div>
-      </div>
+      {% vertical_filters items=filters current_category=currentCategory %}
 
-      <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
-        <a data-toggle="collapse" href="#brandFilterMenu"
-           aria-expanded="true" aria-controls="brandFilterMenu"
-           class="d-lg-none block-toggler">Filter by brand</a>
-        <!-- Brand filter menu - this menu has .show class, so is expanded by default-->
-        <div id="brandFilterMenu" class="expand-lg collapse show">
-          <h6 class="sidebar-heading d-none d-lg-block">Brands </h6>
-          <form action="#" class="mt-4 mt-lg-0">
-            <div class="form-group mb-1">
-              <div class="custom-control custom-checkbox">
-                <input id="brand0" type="checkbox" name="clothes-brand" checked="" class="custom-control-input">
-                <label for="brand0" class="custom-control-label">Calvin Klein
-                  <small>(18)</small>
-                </label>
-              </div>
-            </div>
-            <div class="form-group mb-1">
-              <div class="custom-control custom-checkbox">
-                <input id="brand1" type="checkbox" name="clothes-brand" checked="" class="custom-control-input">
-                <label for="brand1" class="custom-control-label">Levi Strauss
-                  <small>(30)</small>
-                </label>
-              </div>
-            </div>
-            <div class="form-group mb-1">
-              <div class="custom-control custom-checkbox">
-                <input id="brand2" type="checkbox" name="clothes-brand" class="custom-control-input">
-                <label for="brand2" class="custom-control-label">Hugo Boss
-                  <small>(120)</small>
-                </label>
-              </div>
-            </div>
-            <div class="form-group mb-1">
-              <div class="custom-control custom-checkbox">
-                <input id="brand3" type="checkbox" name="clothes-brand" class="custom-control-input">
-                <label for="brand3" class="custom-control-label">Tomi Hilfiger
-                  <small>(70)</small>
-                </label>
-              </div>
-            </div>
-            <div class="form-group mb-1">
-              <div class="custom-control custom-checkbox">
-                <input id="brand4" type="checkbox" name="clothes-brand" class="custom-control-input">
-                <label for="brand4" class="custom-control-label">Tom Ford
-                  <small>(110)</small>
-                </label>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
 {% endblock content %}

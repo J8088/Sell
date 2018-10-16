@@ -1,0 +1,55 @@
+{% for filter_group_item in filters %}
+  <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
+    <a data-toggle="collapse" href="#brandFilterMenu"
+       aria-expanded="true" aria-controls="brandFilterMenu"
+       class="d-lg-none block-toggler">Filter by {{ filter_group_item.filter_group.filter_group_name }}</a>
+    <!-- Filter menu - this menu has .show class, so is expanded by default-->
+    <div id="brandFilterMenu" class="expand-lg collapse show">
+      <h6 class="sidebar-heading d-none d-lg-block">{{ filter_group_item.filter_group.filter_group_name }}</h6>
+      <form action="#" class="mt-4 mt-lg-0">
+        {% for filter_item in filter_group_item.filters %}
+          <div class="form-group mb-1">
+            <div class="custom-control custom-checkbox">
+              <input id="filter-{{ filter_item.filter_id }}" type="checkbox" name="clothes-brand"
+                     class="custom-control-input">
+              <label for="filter-{{ filter_item.filter_id }}" class="custom-control-label">{{ filter_item.filter_name }}
+                <small>(18)</small>
+              </label>
+            </div>
+          </div>
+        {% endfor %}
+      </form>
+    </div>
+  </div>
+{% endfor %}
+
+<div class="sidebar-block px-3 px-lg-0 mr-lg-4">
+  <a data-toggle="collapse" href="#priceFilterMenu"
+     aria-expanded="false" aria-controls="priceFilterMenu"
+     class="d-lg-none block-toggler">Filter by price</a>
+  <div id="priceFilterMenu" class="expand-lg collapse">
+    <h6 class="sidebar-heading d-none d-lg-block">Price </h6>
+    <div id="slider-snap" class="mt-4 mt-lg-0 noUi-target noUi-ltr noUi-horizontal">
+      <div class="noUi-base">
+        <div class="noUi-connects">
+          <div class="noUi-connect" style="transform: translate(16%, 0px) scale(0.28, 1);"></div>
+        </div>
+        <div class="noUi-origin" style="transform: translate(-84%, 0px); z-index: 5;">
+          <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider"
+               aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="44.0" aria-valuenow="16.0"
+               aria-valuetext="40.00"></div>
+        </div>
+        <div class="noUi-origin" style="transform: translate(-56%, 0px); z-index: 6;">
+          <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider"
+               aria-orientation="horizontal" aria-valuemin="16.0" aria-valuemax="100.0" aria-valuenow="44.0"
+               aria-valuetext="110.00"></div>
+        </div>
+      </div>
+    </div>
+    <div class="nouislider-values">
+      <div class="min">From $<span id="slider-snap-value-lower">40.00</span></div>
+      <div class="max">To $<span id="slider-snap-value-upper">110.00</span></div>
+    </div>
+  </div>
+</div>
+

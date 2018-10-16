@@ -8,6 +8,7 @@ INSERT INTO tbl_name (a,b,c) VALUES(1,2,3),(4,5,6),(7,8,9);
 """
 
 from django.db import models
+from django.forms.models import model_to_dict
 
 
 class Category(models.Model):
@@ -39,7 +40,6 @@ class Product(models.Model):
     product_state = models.ForeignKey(ProductStates, on_delete=models.CASCADE, blank=True, null=True)
     product_price = models.FloatField()
     product_currency = models.CharField(max_length=20, default='грн')
-    product_img_path = models.CharField(max_length=2000, default=None)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField()
     active = models.BooleanField(default=True)
@@ -74,6 +74,12 @@ class FilterGroup(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now_add=True)
 
+    def as_data(self):
+        """Return the FilterGroup as a dict suitable for passing as kwargs.
+        """
+        data = model_to_dict(self, exclude=['id', 'user'])
+        return data
+
     class Meta:
         db_table = 'shop_filter_group'
 
@@ -88,6 +94,13 @@ class Filter(models.Model):
     visible = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now_add=True)
+
+    def as_data(self):
+        """Return the Filter as a dict suitable for passing as kwargs.
+        Result does not contain the filter_group.
+        """
+        data = model_to_dict(self, exclude=['filter_group'])
+        return data
 
 
 class ProductToFilter(models.Model):

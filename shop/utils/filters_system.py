@@ -30,7 +30,12 @@ class FilterSystem:
 
         for filter_group in filter_groups_set:
             filters = filters_set.filter(filter_group_id=filter_group.filter_group_id)
-            # result.append({'filter_group'})
+            filters_list = [filter_obj.as_data() for filter_obj in filters]
+            if len(filters_list) > 0:
+                result.append({'filter_group': filter_group.as_data(), 'filters': filters_list})
+        return result
+
+
 
 
     @classmethod
