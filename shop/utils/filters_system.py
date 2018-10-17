@@ -1,4 +1,4 @@
-from ..models import Filter, FilterGroup, ProductToFilter
+from ..models import Filter, FilterGroup, ProductToFilter, ProductToCategory
 
 
 class FilterSystem:
@@ -23,11 +23,15 @@ class FilterSystem:
         if category_codes is None:
             category_codes = []
         filter_groups_set = FilterGroup.objects.all()
+        filters_set = Filter.objects.filter(visible=True)
         product_to_filter = ProductToFilter.objects.filter(product__visible=True)
-        filters_set = Filter.objects.filter(producttofilter__in=product_to_filter).distinct()
 
         if len(category_codes) > 0:
             filters_set = filters_set.filter(filtertocategory__category__category_code__in=category_codes)
+            product_to_category = ProductToCategory.objects.filter(category__category_code__in=category_codes)
+            product_to_filter = product_to_filter.filter(product__producttocategory__in=product_to_category)
+
+        filters_set = filters_set.filter(producttofilter__in=product_to_filter).distinct()
 
         for filter_group in filter_groups_set:
             filters = filters_set.filter(filter_group_id=filter_group.filter_group_id)
