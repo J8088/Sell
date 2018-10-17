@@ -1,4 +1,4 @@
-from ..models import Filter, FilterGroup
+from ..models import Filter, FilterGroup, ProductToFilter
 
 
 class FilterSystem:
@@ -23,7 +23,8 @@ class FilterSystem:
         if category_codes is None:
             category_codes = []
         filter_groups_set = FilterGroup.objects.all()
-        filters_set = Filter.objects.all()
+        product_to_filter = ProductToFilter.objects.filter(product__visible=True)
+        filters_set = Filter.objects.filter(producttofilter__in=product_to_filter).distinct()
 
         if len(category_codes) > 0:
             filters_set = filters_set.filter(filtertocategory__category__category_code__in=category_codes)
@@ -35,9 +36,16 @@ class FilterSystem:
                 result.append({'filter_group': filter_group.as_data(), 'filters': filters_list})
         return result
 
-
-
-
     @classmethod
     def get_filter_groups(cls):
         return FilterGroup.objects.all()
+
+    @classmethod
+    def populate_filters_with_checked(cls, filters_with_groups, filters_query_dict):
+        filter_codes = []
+        for filter_group_dict in filters_with_groups:
+            filter_codes = filters_query_dict.getlist(filter_group_dict['filter_group']['filter_group_code'], [])
+            for filter_dict in filter_group_dict['filters']:
+                if filter_dict['filter_code'] in filter_codes:
+                    filter_dict.update({'checked': True})
+        return filter_codes

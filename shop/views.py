@@ -18,13 +18,27 @@ def catalogue(request, category=None):
     product_system = ProductSystem()
     category_object = category_system.get_single_category_by_code(category)
     main_categories = category_system.get_categories()
-    filters = FilterSystem.get_filters_by_categories(list(map(lambda cat: cat.category_code, main_categories)))
-    products = product_system.get_products_by_categories_filters(
-        list(map(lambda cat: cat.category_code, main_categories)),
-        list(map(lambda fl: fl.filter_code, filters)))
+
+    """
+    filters for displaying in the menu
+    """
     filters_with_groups = FilterSystem.get_filter_groups_with_filters_by_categories_dict(
         [category] if category else None
     )
+
+    """
+    filters for products filtering
+    """
+    filters = FilterSystem.populate_filters_with_checked(filters_with_groups, request.GET)
+
+    if len(filters) == 0:
+        filter_objects = FilterSystem.get_filters_by_categories(
+            list(map(lambda cat: cat.category_code, main_categories)))
+        filters = list(map(lambda fl: fl.filter_code, filter_objects))
+
+    products = product_system.get_products_by_categories_filters(
+        list(map(lambda cat: cat.category_code, main_categories)),
+        filters)
     ctx = {'categories': main_categories,
            'products': products,
            'filters': filters_with_groups,

@@ -2,13 +2,14 @@
 
   {% for category in menu_items %}
     <li class="nav-item dropdown">
-{#      <a id="homeDropdownMenuLink{{ category.category_id }}"#}
-{#         href="/{{ category.category_code }}/"#}
-{#         aria-haspopup="true"#}
-{#         aria-expanded="true"#}
-{#         class="nav-link {% if current_category.category_code == category.category_code %} active {% endif %}">#}
-{#        {{ category.category_name }}#}
-{#      </a>#}
+      {#          TODO: add setting to show/hide images #}
+      {#      <a id="homeDropdownMenuLink{{ category.category_id }}"#}
+      {#         href="/{{ category.category_code }}/"#}
+      {#         aria-haspopup="true"#}
+      {#         aria-expanded="true"#}
+      {#         class="nav-link {% if current_category.category_code == category.category_code %} active {% endif %}">#}
+      {#        {{ category.category_name }}#}
+      {#      </a>#}
       <div class="nav-item__cat">
         <div class="nav-item__cat-item">
           <a id="homeDropdownMenuLink{{ category.category_id }}"
@@ -16,9 +17,10 @@
              aria-haspopup="true"
              aria-expanded="true"
              class="nav-link {% if current_category.category_code == category.category_code %} active {% endif %}">
-            <img alt="Shop by category"
-                 src={{ category.category_img }}
-                         class="acs_tile__image">
+            {#          TODO: add setting to show/hide images #}
+            {#            <img alt="Shop by category"#}
+            {#                 src={{ category.category_img }}#}
+            {#                         class="acs_tile__image">#}
             {{ category.category_name }}
           </a>
         </div>

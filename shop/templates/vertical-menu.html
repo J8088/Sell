@@ -1,19 +1,31 @@
 {% load vertical_menu from navigation %}
 
-<div class="nav nav-pills flex-column {% if child %} ml-3 {% else %} mt-4 mt-lg-0 {% endif %}">
+{% if menu_items %}
+  <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
+    <a data-toggle="collapse" href="#categoriesMenu"
+       aria-expanded="false" aria-controls="categoriesMenu"
+       class="d-lg-none block-toggler">Product Categories</a>
 
-  {% for category in menu_items %}
-    <a href="/{{ category.node.category_code }}/"
-       class="nav-link {% if not child %} d-flex justify-content-between {% endif %} mb-2 ">
+    <div id="categoriesMenu" class="expand-lg collapse">
+      <div class="nav nav-pills flex-column {% if child %} ml-3 {% else %} mt-4 mt-lg-0 {% endif %}">
 
-      <span>{{ category.node.category_name }}</span>
+        {% for category in menu_items %}
+          <a href="/{{ category.node.category_code }}/"
+             class="nav-link {% if not child %} d-flex justify-content-between {% endif %} mb-2 ">
 
-      {% if not child %}
-        <span class="sidebar-badge"> 120</span>
-      {% endif %}
-    </a>
-    {% if category.children %}
-      {% vertical_menu items=category.children current_category=currentCategory child=True %}
-    {% endif %}
-  {% endfor %}
-</div>
+            <span>{{ category.node.category_name }}</span>
+
+            {% if not child %}
+              <span class="sidebar-badge"> 120</span>
+            {% endif %}
+          </a>
+          {% if category.children %}
+            {% vertical_menu items=category.children current_category=currentCategory child=True %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+{% endif %}
+

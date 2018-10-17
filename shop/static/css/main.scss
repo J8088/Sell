@@ -77,10 +77,14 @@ body {
 
 .navbar .nav-link {
   color: #495057;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .15em;
-  font-size: .6rem;
+  letter-spacing: .16em;
+  font-size: .8rem;
+}
+
+.navbar-light .navbar-nav .nav-link{
+  color: rgba(0,0,0,0.65);
 }
 
 .breadcrumb {
@@ -288,9 +292,14 @@ h6, .h6 {
 }
 
 .sidebar-block {
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid #e9ecef;
+  border-top: 1px solid #e9ecef;
+}
+
+.sidebar-block__form {
+  height: 500px;
+  overflow: auto;
 }
 
 /*price slider*/
@@ -448,6 +457,10 @@ input[type="radio"], input[type="checkbox"] {
 .custom-control-label {
   position: relative;
   margin-bottom: 0;
+  color: #212529;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: .8rem;
 }
 
 small, .small {

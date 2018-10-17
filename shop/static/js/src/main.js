@@ -14,3 +14,13 @@ $(window).scroll(function () {
     $('#mainNavBar').removeClass('fixed-top');
   }
 });
+
+
+$(document).ready((e) => {
+  const $form = $('form.sidebar-block__form');
+  const $countryFields = $form.find('input[type=checkbox]');
+  $countryFields.on('change', (e) => {
+    $form.submit();
+  });
+});
+
