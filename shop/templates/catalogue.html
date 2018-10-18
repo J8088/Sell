@@ -44,16 +44,36 @@
       </div>
       <nav aria-label="page navigation" class="d-flex justify-content-center mb-5 mt-3">
         <ul class="pagination">
-          <li class="page-item"><a href="#" aria-label="Previous" class="page-link"><span aria-hidden="true">Prev</span><span
-                  class="sr-only">Previous</span></a></li>
-          <li class="page-item active"><a href="#" class="page-link">1 </a></li>
-          <li class="page-item"><a href="#" class="page-link">2 </a></li>
-          <li class="page-item"><a href="#" class="page-link">3 </a></li>
-          <li class="page-item"><a href="#" class="page-link">4 </a></li>
-          <li class="page-item"><a href="#" class="page-link">5 </a></li>
-          <li class="page-item"><a href="#" aria-label="Next" class="page-link">
-            <span aria-hidden="true">Next</span><span class="sr-only">Next     </span>
-          </a>
+          {#        TODO implement request.get_full_path#}
+          {#        TODO move this block to the tag#}
+
+          <li class="page-item">
+            <a href="{% if products.has_previous %}?page={{ products.previous_page_number }}{% endif %}"
+               aria-label="Previous"
+               class="page-link  {% if not products.has_previous %}disabled{% endif %}">
+              <span aria-hidden="true">Prev</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+
+          {% for page_number in page_range %}
+            {% if products.number == page_number %}
+              <li class="page-item active">
+                <a href="?page={{ page_number }}" class="page-link">{{ page_number }}</a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a href="?page={{ page_number }}" class="page-link">{{ page_number }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          <li class="page-item">
+            <a href="{% if products.has_next %}?page={{ products.next_page_number }}{% endif %}" aria-label="Next"
+               class="page-link {% if not products.has_next %}disabled{% endif %}">
+              <span aria-hidden="true">Next</span>
+              <span class="sr-only">Next</span>
+            </a>
           </li>
         </ul>
       </nav>

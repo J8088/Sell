@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.template.response import TemplateResponse
+from django.conf import settings
 from .utils.product_system import ProductSystem
 from .utils.category_system import CategorySystem
 from .utils.filters_system import FilterSystem
+from .utils import get_paginator_items
 
 
 def catalogue(request):
@@ -36,8 +38,11 @@ def catalogue(request):
     products = product_system.get_products_by_categories_filters(
         list(map(lambda cat: cat.category_code, main_categories)),
         filters)
+    page = request.GET.get('page', '1')
+    products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
     ctx = {'categories': main_categories,
-           'products': products,
+           'products': products_paginated,
+           'page_range': page_range,
            'filters': filters_with_groups,
            'currentCategory': None}
     return TemplateResponse(request, 'catalogue.html', ctx)
@@ -74,8 +79,11 @@ def category(request, category=None):
         filters = list(map(lambda fl: fl.filter_code, filter_objects))
 
     products = product_system.get_products_by_categories_filters([category_object.category_code], filters)
+    page = request.GET.get('page', '1')
+    products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
     ctx = {'categories': main_categories,
-           'products': products,
+           'products': products_paginated,
+           'page_range': page_range,
            'filters': filters_with_groups,
            'currentCategory': category_object}
     return TemplateResponse(request, 'catalogue.html', ctx)

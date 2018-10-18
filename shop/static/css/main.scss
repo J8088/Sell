@@ -577,3 +577,11 @@ a:hover {
 .nav-item__cat-item img {
   height: 50px;
 }
+
+.disabled {
+  color: #dee2e6;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}
