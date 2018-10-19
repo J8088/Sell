@@ -44,13 +44,17 @@ class ProductSystem:
         if filter_codes is None:
             filter_codes = []
 
-        products_set = Product.objects.all()
+        products_set = Product.objects.filter(productimage__product_image_order_no=1). \
+            values('product_id', 'product_name', 'product_description',
+                   'product_state_id', 'product_price', 'product_currency',
+                   'active', 'visible', 'productimage__product_photo', 'category_id',
+                   'created_date', 'updated_date')
 
         if len(category_codes) > 0:
             products_set = products_set.filter(producttocategory__category__category_code__in=category_codes)
 
         if len(filter_codes) > 0:
             products_set = products_set.filter(producttofilter__filter__filter_code__in=filter_codes)
+        products_set = products_set.distinct()
 
         return products_set
-

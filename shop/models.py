@@ -49,7 +49,9 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     product_image_id = models.AutoField(primary_key=True)
-    product_image_path = models.CharField(max_length=2000, default=None)
+    product_optional_image_path = models.CharField(max_length=2000, blank=True, null=True)
+    product_photo = models.ImageField(upload_to='product_photos', default=None)
+    product_image_order_no = models.IntegerField(default=1)
 
     class Meta:
         db_table = 'shop_product_image'

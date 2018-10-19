@@ -7,7 +7,7 @@ from .utils.filters_system import FilterSystem
 from .utils import get_paginator_items
 
 
-def catalogue(request):
+def catalogue_view(request):
     """
     1. get full categories list
     2. get full filters list by categories list
@@ -48,7 +48,7 @@ def catalogue(request):
     return TemplateResponse(request, 'catalogue.html', ctx)
 
 
-def category(request, category=None):
+def category_view(request, category=None):
     """
     1. get full categories list
     2. get full filters list by categories list
@@ -89,7 +89,7 @@ def category(request, category=None):
     return TemplateResponse(request, 'catalogue.html', ctx)
 
 
-def catalogue_with_vertical_categories(request, category=None):
+def catalogue_with_vertical_categories_view(request, category=None):
     category_system = CategorySystem()
     product_system = ProductSystem()
 
@@ -125,3 +125,13 @@ def catalogue_with_vertical_categories(request, category=None):
         'breadcrumbPath': breadcrumb_path
     }
     return render(request, 'catalogue_with_vertical_categories.html', context)
+
+
+def product_view(request, product=None):
+    category_system = CategorySystem()
+    main_categories = category_system.get_categories()
+    ctx = {
+        'categories': main_categories,
+        'currentCategory': None
+    }
+    return TemplateResponse(request, 'product-details.html', ctx)

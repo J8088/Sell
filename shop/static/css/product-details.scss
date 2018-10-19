@@ -1,0 +1,35 @@
+.owl-carousel.owl-drag .owl-item {
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.owl-theme .owl-item {
+  -ms-touch-action: initial !important;
+  touch-action: initial !important;
+  -webkit-perspective: 1000px !important;
+  perspective: 1000px !important;
+}
+
+.owl-carousel .owl-item {
+  width: 690px;
+}
+
+@media (min-width: 992px) {
+  .detail-full-item {
+    height: calc(100vh - 125px - 2rem);
+  }
+}
+
+.detail-full-item {
+    width: 100%;
+    min-height: 600px;
+}
+
+.detail-full-item__img {
+  padding-left: 10em;
+  height: 45em;
+}
