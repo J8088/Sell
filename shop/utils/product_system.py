@@ -1,4 +1,4 @@
-from shop.models import Product
+from shop.models import Product, ProductImage
 from shop.utils.category_system import CategorySystem
 
 
@@ -58,3 +58,10 @@ class ProductSystem:
         products_set = products_set.distinct()
 
         return products_set
+
+    def get_product_by_id(self, product_id):
+        product_set = Product.objects.filter(product_id=product_id).first().as_data()
+        product_images_set = ProductImage.objects.filter(product_id=product_set['product_id'])
+        product_set.update({'product_images': [prod_image.as_data() for prod_image in product_images_set]})
+
+        return product_set

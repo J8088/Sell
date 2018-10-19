@@ -45,6 +45,12 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     visible = models.BooleanField(default=False)
 
+    def as_data(self):
+        """Return the Product as a dict suitable for passing as kwargs.
+        """
+        data = model_to_dict(self)
+        return data
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -52,6 +58,12 @@ class ProductImage(models.Model):
     product_optional_image_path = models.CharField(max_length=2000, blank=True, null=True)
     product_photo = models.ImageField(upload_to='product_photos', default=None)
     product_image_order_no = models.IntegerField(default=1)
+
+    def as_data(self):
+        """Return the ProductImage as a dict suitable for passing as kwargs.
+        """
+        data = model_to_dict(self)
+        return data
 
     class Meta:
         db_table = 'shop_product_image'

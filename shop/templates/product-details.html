@@ -6,14 +6,18 @@
         <div class="col-lg-6 py-3 order-2 order-lg-1">
           <div class="owl-carousel owl-theme owl-dots-modern detail-full owl-loaded owl-drag">
             <div class="owl-stage-outer">
+
               <div class="owl-stage">
-                <div class="owl-item active" style="width: 690px;">
-                  <div class="detail-full-item">
-                    <img src="https://d19m59y37dris4.cloudfront.net/sell/1-2-1/img/photo/kyle-loftus-596319-detail-1.jpg"
-                         class="detail-full-item__img"
-                         alt="img">
+                {% for image in product.product_images %}
+                  {% if image.product_image_order_no == 1 %}
+                    <div class="owl-item active" style="width: 690px;">
+                    <div class="detail-full-item">
+                      <img src="/media/{{ image.product_photo }}"
+                           alt="img">
+                    </div>
                   </div>
-                </div>
+                  {% endif %}
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -25,10 +29,10 @@
               <li class="breadcrumb-item"><a href="category.html">Tops and Jackets</a></li>
               <li class="breadcrumb-item active">Modern Jacket</li>
             </ul>
-            <h1 class="mb-4">Modern Jacket</h1>
+            <h1 class="mb-4">{{ product.product_name }}</h1>
             <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-4">
               <ul class="list-inline mb-2 mb-sm-0">
-                <li class="list-inline-item h4 font-weight-light mb-0">$65.00</li>
+                <li class="list-inline-item h4 font-weight-light mb-0">{{ product.product_price }}</li>
                 <li class="list-inline-item text-muted font-weight-light">
                   <del>$90.00</del>
                 </li>
@@ -44,9 +48,7 @@
                 <span class="text-muted text-uppercase text-sm">25 reviews</span>
               </div>
             </div>
-            <p class="mb-4 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-              ullamco</p>
+            <p class="mb-4 text-muted">{{ product.product_description }}</p>
             <form action="#">
               <div class="row">
                 <div class="col-sm-6 col-lg-12 detail-option mb-3">
@@ -141,18 +143,10 @@
       <div class="tab-content py-4">
         <div class="tab-pane active px-3">
           <p class="text-muted">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. LOLUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat. LOLDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
+            {{ product.product_description }}
           </p>
           <p class="text-muted">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. LOLUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat. LOLDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
+            {{ product.product_description }}
           </p>
         </div>
         <div class="tab-pane"></div>
