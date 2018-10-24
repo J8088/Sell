@@ -4,11 +4,14 @@
 {% load vertical_menu from navigation %}
 {% load vertical_filters from navigation %}
 
-{% block breadcrumbs %}
-  {% breadcrumb path=breadcrumbPath token=currentCategory %}
-{% endblock %}
+
 
 {% block content %}
+  <section class="header">
+    {% block breadcrumbs %}
+      {% breadcrumb path=breadcrumbPath token=currentCategory %}
+    {% endblock %}
+  </section>
   <div class="container">
     <div class="row">
       <div class="products-grid col-xl-9 col-lg-8 order-lg-2">

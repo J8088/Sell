@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load breadcrumb from navigation %}
+
 {% block content %}
   <section class="product-details">
     <div class="container-fluid">
@@ -11,12 +13,12 @@
                 {% for image in product.product_images %}
                   {% if image.product_image_order_no == 1 %}
                     <div class="owl-item active" style="width: 690px;">
-                    <div class="detail-full-item">
-                      <img src="/media/{{ image.product_photo }}"
-                           class="detail-full-item__img"
-                           alt="img">
+                      <div class="detail-full-item">
+                        <img src="/media/{{ image.product_photo }}"
+                             class="detail-full-item__img"
+                             alt="img">
+                      </div>
                     </div>
-                  </div>
                   {% endif %}
                 {% endfor %}
               </div>
@@ -25,106 +27,118 @@
         </div>
         <div class="d-flex align-items-center col-lg-6 col-xl-5 pl-lg-5 mb-5 order-1 order-lg-2">
           <div>
-            <ul class="breadcrumb justify-content-start">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item"><a href="category.html">Tops and Jackets</a></li>
-              <li class="breadcrumb-item active">Modern Jacket</li>
-            </ul>
+
+            {% block breadcrumbs %}
+              {% breadcrumb path=breadcrumbPath token=currentCategory %}
+            {% endblock %}
+
             <h1 class="mb-4">{{ product.product_name }}</h1>
             <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-4">
               <ul class="list-inline mb-2 mb-sm-0">
-                <li class="list-inline-item h4 font-weight-light mb-0">{{ product.product_price }}</li>
-                <li class="list-inline-item text-muted font-weight-light">
-                  <del>$90.00</del>
+                <li class="list-inline-item h4 font-weight-light mb-0">
+                  {{ product.product_price }} {{ product.product_currency }}
                 </li>
+                {% if showFull %}
+                  <li class="list-inline-item text-muted font-weight-light">
+                    <del>{{ product.product_price }} {{ product.product_currency }}</del>
+                  </li>
+                {% endif %}
               </ul>
-              <div class="d-flex align-items-center">
-                <ul class="list-inline mr-2 mb-0">
-                  <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
-                  <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
-                  <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
-                  <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
-                  <li class="list-inline-item mr-0"><i class="fa fa-star text-gray-300"></i></li>
-                </ul>
-                <span class="text-muted text-uppercase text-sm">25 reviews</span>
-              </div>
+
+              {% if showFull %}
+                <div class="d-flex align-items-center">
+                  <ul class="list-inline mr-2 mb-0">
+                    <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
+                    <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
+                    <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
+                    <li class="list-inline-item mr-0"><i class="fa fa-star text-primary"></i></li>
+                    <li class="list-inline-item mr-0"><i class="fa fa-star text-gray-300"></i></li>
+                  </ul>
+                  <span class="text-muted text-uppercase text-sm">25 reviews</span>
+                </div>
+              {% endif %}
+
             </div>
             <p class="mb-4 text-muted">{{ product.product_description }}</p>
-            <form action="#">
-              <div class="row">
-                <div class="col-sm-6 col-lg-12 detail-option mb-3">
-                  <h6 class="detail-option-heading">Size <span>(required)</span></h6>
-                  <label for="size_0" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
 
-                    Small
-                    <input type="radio" name="size" value="value_0" id="size_0" required="" class="input-invisible">
-                  </label>
-                  <label for="size_1" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
+            {% if showFull %}
+              <form action="#">
+                <div class="row">
+                  <div class="col-sm-6 col-lg-12 detail-option mb-3">
+                    <h6 class="detail-option-heading">Size <span>(required)</span></h6>
+                    <label for="size_0" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
 
-                    Medium
-                    <input type="radio" name="size" value="value_1" id="size_1" required="" class="input-invisible">
-                  </label>
-                  <label for="size_2" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
+                      Small
+                      <input type="radio" name="size" value="value_0" id="size_0" required="" class="input-invisible">
+                    </label>
+                    <label for="size_1" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
 
-                    Large
-                    <input type="radio" name="size" value="value_2" id="size_2" required="" class="input-invisible">
-                  </label>
-                </div>
-                <div class="col-sm-6 col-lg-12 detail-option mb-3">
-                  <h6 class="detail-option-heading">Type <span>(required)</span></h6>
-                  <label for="material_0" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
+                      Medium
+                      <input type="radio" name="size" value="value_1" id="size_1" required="" class="input-invisible">
+                    </label>
+                    <label for="size_2" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
 
-                    Hoodie
-                    <input type="radio" name="material" value="value_0" id="material_0" required=""
-                           class="input-invisible">
-                  </label>
-                  <label for="material_1" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
+                      Large
+                      <input type="radio" name="size" value="value_2" id="size_2" required="" class="input-invisible">
+                    </label>
+                  </div>
+                  <div class="col-sm-6 col-lg-12 detail-option mb-3">
+                    <h6 class="detail-option-heading">Type <span>(required)</span></h6>
+                    <label for="material_0" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
 
-                    College
-                    <input type="radio" name="material" value="value_1" id="material_1" required=""
-                           class="input-invisible">
-                  </label>
-                </div>
-                <div class="col-12 detail-option mb-3">
-                  <h6 class="detail-option-heading">Colour <span>(required)</span></h6>
-                  <ul class="list-inline mb-0 colours-wrapper">
-                    <li class="list-inline-item">
-                      <label for="colour_Blue" style="background-color: #668cb9" class="btn-colour"> </label>
-                      <input type="radio" name="colour" value="value_Blue" id="colour_Blue" required=""
+                      Hoodie
+                      <input type="radio" name="material" value="value_0" id="material_0" required=""
                              class="input-invisible">
-                    </li>
-                    <li class="list-inline-item">
-                      <label for="colour_White" style="background-color: #fff" class="btn-colour"> </label>
-                      <input type="radio" name="colour" value="value_White" id="colour_White" required=""
+                    </label>
+                    <label for="material_1" class="btn btn-sm btn-outline-secondary detail-option-btn-label">
+
+                      College
+                      <input type="radio" name="material" value="value_1" id="material_1" required=""
                              class="input-invisible">
-                    </li>
-                    <li class="list-inline-item">
-                      <label for="colour_Violet" style="background-color: #8b6ea4" class="btn-colour"> </label>
-                      <input type="radio" name="colour" value="value_Violet" id="colour_Violet" required=""
-                             class="input-invisible">
-                    </li>
-                    <li class="list-inline-item">
-                      <label for="colour_Red" style="background-color: #dd6265" class="btn-colour"> </label>
-                      <input type="radio" name="colour" value="value_Red" id="colour_Red" required=""
-                             class="input-invisible">
-                    </li>
-                  </ul>
+                    </label>
+                  </div>
+                  <div class="col-12 detail-option mb-3">
+                    <h6 class="detail-option-heading">Colour <span>(required)</span></h6>
+                    <ul class="list-inline mb-0 colours-wrapper">
+                      <li class="list-inline-item">
+                        <label for="colour_Blue" style="background-color: #668cb9" class="btn-colour"> </label>
+                        <input type="radio" name="colour" value="value_Blue" id="colour_Blue" required=""
+                               class="input-invisible">
+                      </li>
+                      <li class="list-inline-item">
+                        <label for="colour_White" style="background-color: #fff" class="btn-colour"> </label>
+                        <input type="radio" name="colour" value="value_White" id="colour_White" required=""
+                               class="input-invisible">
+                      </li>
+                      <li class="list-inline-item">
+                        <label for="colour_Violet" style="background-color: #8b6ea4" class="btn-colour"> </label>
+                        <input type="radio" name="colour" value="value_Violet" id="colour_Violet" required=""
+                               class="input-invisible">
+                      </li>
+                      <li class="list-inline-item">
+                        <label for="colour_Red" style="background-color: #dd6265" class="btn-colour"> </label>
+                        <input type="radio" name="colour" value="value_Red" id="colour_Red" required=""
+                               class="input-invisible">
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-12 detail-option mb-5">
+                    <label class="detail-option-heading font-weight-bold">Items <span>(required)</span></label>
+                    <input name="items" type="number" value="1" class="form-control detail-quantity">
+                  </div>
                 </div>
-                <div class="col-12 detail-option mb-5">
-                  <label class="detail-option-heading font-weight-bold">Items <span>(required)</span></label>
-                  <input name="items" type="number" value="1" class="form-control detail-quantity">
-                </div>
-              </div>
-              <ul class="list-inline">
-                <li class="list-inline-item">
-                  <button type="submit" class="btn btn-dark btn-lg mb-1"><i class="fa fa-shopping-cart mr-2"></i>Add to
-                    Cart
-                  </button>
-                </li>
-                <li class="list-inline-item"><a href="#" class="btn btn-outline-secondary mb-1"> <i
-                        class="far fa-heart mr-2"></i>Add to wishlist</a></li>
-              </ul>
-            </form>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <button type="submit" class="btn btn-dark btn-lg mb-1"><i class="fa fa-shopping-cart mr-2"></i>Add
+                      to
+                      Cart
+                    </button>
+                  </li>
+                  <li class="list-inline-item"><a href="#" class="btn btn-outline-secondary mb-1"> <i
+                          class="far fa-heart mr-2"></i>Add to wishlist</a></li>
+                </ul>
+              </form>
+            {% endif %}
           </div>
         </div>
       </div>

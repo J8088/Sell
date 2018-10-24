@@ -138,3 +138,7 @@ print("__file__={0}, ==> PROJECT_ROOT => {1}".format(__file__, PROJECT_ROOT))
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
+PRODUCT_DETAILS = {
+    'full': False
+}
+

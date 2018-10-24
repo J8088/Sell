@@ -130,9 +130,11 @@ def catalogue_with_vertical_categories_view(request, category=None):
 def product_view(request, product=None):
     main_categories = CategorySystem().get_categories()
     product_dict = ProductSystem().get_product_by_id(product)
+    show_full = settings.PRODUCT_DETAILS['full']
     ctx = {
         'categories': main_categories,
         'product': product_dict,
-        'currentCategory': None
+        'currentCategory': None,
+        'showFull': show_full
     }
     return TemplateResponse(request, 'product-details.html', ctx)
