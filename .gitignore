@@ -13,3 +13,4 @@ populate_db_with_*.py
 /wip
 .rps
 media
+*.zip

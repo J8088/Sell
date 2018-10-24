@@ -1,6 +1,8 @@
+@import "vars";
+
 body {
   margin: 0;
-  font-family: "HK Grotesk", sans-serif;
+  font-family: $main-font;
   font-size: .9rem;
   font-weight: 400;
   line-height: 1.5;
@@ -64,9 +66,9 @@ body {
 
 .navbar .nav-link {
   color: #495057;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .16em;
+  letter-spacing: .15em;
   font-size: .8rem;
 }
 
