@@ -17,7 +17,9 @@
                      value="{{ filter_item.filter_code }}">
               <label for="filter-{{ filter_item.filter_code }}"
                      class="custom-control-label">{{ filter_item.filter_name }}
-                <small>(18)</small>
+                {% if 'product_counts' not in restricted %}
+                  <small>(18)</small>
+                {% endif %}
               </label>
             </div>
           </div>

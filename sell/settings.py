@@ -141,6 +141,7 @@ PRODUCT_DETAILS = {
 }
 
 DISPLAY_FEATURES_DICT = {
-    'price_filter': False
+    'price_filter': False,
+    'product_counts': False
 }
 
