@@ -40,11 +40,13 @@ def catalogue_view(request):
         filters)
     page = request.GET.get('page', '1')
     products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
+    restricted = [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
     ctx = {'categories': main_categories,
            'products': products_paginated,
            'page_range': page_range,
            'filters': filters_with_groups,
-           'currentCategory': None}
+           'currentCategory': None,
+           'restricted': restricted}
     return TemplateResponse(request, 'catalogue.html', ctx)
 
 
@@ -81,11 +83,13 @@ def category_view(request, category=None):
     products = product_system.get_products_by_categories_filters([category_object.category_code], filters)
     page = request.GET.get('page', '1')
     products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
+    restricted = [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
     ctx = {'categories': main_categories,
            'products': products_paginated,
            'page_range': page_range,
            'filters': filters_with_groups,
-           'currentCategory': category_object}
+           'currentCategory': category_object,
+           'restricted': restricted}
     return TemplateResponse(request, 'catalogue.html', ctx)
 
 

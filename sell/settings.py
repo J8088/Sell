@@ -133,12 +133,14 @@ STATIC_URL = '/static/'
 
 # https://www.amazon.com/b/ref=sr_aj?node=2407760011&bbn=2407760011&ajr=0
 
-print("__file__={0}, ==> PROJECT_ROOT => {1}".format(__file__, PROJECT_ROOT))
-
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
 PRODUCT_DETAILS = {
     'full': False
+}
+
+DISPLAY_FEATURES_DICT = {
+    'price_filter': False
 }
 

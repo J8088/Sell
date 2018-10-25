@@ -16,12 +16,13 @@ def vertical_menu(context, items, current_category, child=None):
 
 
 @register.inclusion_tag('vertical_filters.html', takes_context=True)
-def vertical_filters(context, items, current_category, current_filters=None):
+def vertical_filters(context, items, current_category, current_filters=None, restricted=None):
     if current_filters is None:
         current_filters = []
     return {'filters': items,
             'current_category': current_category,
-            'current_filters': current_filters}
+            'current_filters': current_filters,
+            'restricted': restricted}
 
 
 @register.inclusion_tag('breadcrumbs.html', takes_context=True)
