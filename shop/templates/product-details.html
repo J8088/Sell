@@ -5,6 +5,11 @@
   <section class="product-details">
     <div class="container-fluid">
       <div class="row">
+        {% block breadcrumbs %}
+          {% breadcrumb path=breadcrumbPath token=currentCategory %}
+        {% endblock %}
+      </div>
+      <div class="row">
         <div class="col-lg-6 py-3 order-2 order-lg-1">
           <div class="owl-carousel owl-theme owl-dots-modern detail-full owl-loaded owl-drag">
             <div class="owl-stage-outer">
@@ -28,9 +33,6 @@
         <div class="d-flex align-items-center col-lg-6 col-xl-5 pl-lg-5 mb-5 order-1 order-lg-2">
           <div>
 
-            {% block breadcrumbs %}
-              {% breadcrumb path=breadcrumbPath token=currentCategory %}
-            {% endblock %}
 
             <h1 class="mb-4">{{ product.product_name }}</h1>
             <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-4">

@@ -21,6 +21,12 @@ class Category(models.Model):
     active = models.BooleanField(default=True)
     visible = models.BooleanField(default=False)
 
+    def as_data(self):
+        """Return the Product as a dict suitable for passing as kwargs.
+        """
+        data = model_to_dict(self)
+        return data
+
 
 class ProductStates(models.Model):
     product_state_id = models.AutoField(primary_key=True)

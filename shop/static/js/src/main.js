@@ -8,7 +8,7 @@ window.jQuery = $;
 window.$ = $;
 
 $(window).scroll(function () {
-  if ($(this).scrollTop() > 50) {
+  if ($(this).scrollTop() > 65) {
     $('#mainNavBar').addClass('fixed-top');
   } else {
     $('#mainNavBar').removeClass('fixed-top');

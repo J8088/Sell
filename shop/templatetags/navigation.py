@@ -32,11 +32,15 @@ def breadcrumb(context, path, token):
 
     if path:
         for item in path:
+            if item['tokenType'] == 'category':
+                url = '/{}/{}/'.format('category', item['tokenCode']) if item['tokenCode'] else ''
+            else:
+                url = '/{}/{}/'.format('product', str(item['tokenId'])) if item['tokenId'] else ''
             breadcrumbs.append({
-                'id': item['categoryId'],
-                'name': item['categoryName'],
-                'code': item['categoryCode'],
-                'url': item['categoryCode'] + '/' if item['categoryCode'] else ''
+                'id': item['tokenId'],
+                'name': item['tokenName'],
+                'code': item['tokenCode'],
+                'url': url
             })
 
     if token and not path:

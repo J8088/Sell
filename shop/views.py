@@ -110,9 +110,10 @@ def catalogue_with_vertical_categories_view(request, category=None):
         upward_tree.sort(key=lambda cat: cat.category_parent_id if cat.category_parent_id else 0)
         breadcrumb_path = [
             {
-                'categoryId': token.category_id,
-                'categoryName': token.category_name,
-                'categoryCode': token.category_code
+                'tokenId': token.category_id,
+                'tokenName': token.category_name,
+                'tokenCode': token.category_code,
+                'tokenType': 'category'
             }
             for token in upward_tree
         ]
@@ -128,13 +129,31 @@ def catalogue_with_vertical_categories_view(request, category=None):
 
 
 def product_view(request, product=None):
+    product_system = ProductSystem()
     main_categories = CategorySystem().get_categories()
-    product_dict = ProductSystem().get_product_by_id(product)
+    product_dict = product_system.get_product_by_id(product)
     show_full = settings.PRODUCT_DETAILS['full']
+    categories = product_system.get_categories_by_product_id(product)
+    breadcrumb_path = [
+        {
+            'tokenId': token.category_id,
+            'tokenName': token.category_name,
+            'tokenCode': token.category_code,
+            'tokenType': 'category'
+        }
+        for token in categories
+    ]
+    breadcrumb_path.append({
+        'tokenId': product_dict['product_id'],
+        'tokenName': product_dict['product_name'],
+        'tokenCode': str(product_dict['product_id']),
+        'tokenType': 'product'
+    })
     ctx = {
         'categories': main_categories,
         'product': product_dict,
         'currentCategory': None,
-        'showFull': show_full
+        'showFull': show_full,
+        'breadcrumbPath': breadcrumb_path
     }
     return TemplateResponse(request, 'product-details.html', ctx)
