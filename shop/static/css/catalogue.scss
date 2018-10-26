@@ -37,9 +37,8 @@
   top: 0;
 }
 
-.product-image:hover
-.product-hover-overlay {
-  opacity: 0.8;
+.product-image:hover .product-hover-overlay {
+  opacity: 0.82;
 }
 
 .product-hover-overlay .product-hover-overlay-buttons {
@@ -76,7 +75,6 @@ img {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: .3em;
-  line-height: 1;
   padding: .6rem .75rem;
   font-size: .6875rem;
   line-height: 1.5;
@@ -89,6 +87,15 @@ img {
   padding-right: 2rem;
   margin-left: .5rem;
   margin-right: .5rem;
+}
+
+.btn-color {
+  color: #fff;
+  background-color: #F48000;
+}
+
+.btn-color:hover{
+  color: #fff;
 }
 
 a {
@@ -113,6 +120,10 @@ a {
 
 .text-dark {
   color: #343a40 !important;
+}
+
+.text-dark:hover{
+  color: #F48000;
 }
 
 h6, .h6 {

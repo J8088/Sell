@@ -27,6 +27,8 @@
   font-size: 1em;
   opacity: .9;
   border-radius: 50px;
+  border: 1px solid #F48000;
+  color: #F48000;
 }
 
 .owl-next-button {
@@ -43,7 +45,9 @@
   font-size: 1em;
   opacity: .9;
   border-radius: 50px;
+  border: 1px solid #F48000;
   transition: all .3s linear;
+  color: #F48000;
 }
 
 .owl-next-button:focus,
