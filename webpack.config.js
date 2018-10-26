@@ -1,4 +1,6 @@
-var path = require('path');
+const path = require('path');
+const webpack = require('webpack');
+
 
 module.exports = {
   entry: './shop/static/js/src/main.js',
@@ -37,7 +39,23 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
       }
-    ]
-  }
+    ],
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    }),
+  ],
 };

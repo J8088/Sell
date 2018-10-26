@@ -11,24 +11,20 @@
       </div>
       <div class="row">
         <div class="col-lg-6 py-3 order-2 order-lg-1">
-          <div class="owl-carousel owl-theme owl-dots-modern detail-full owl-loaded owl-drag">
-            <div class="owl-stage-outer">
 
-              <div class="owl-stage">
-                {% for image in product.product_images %}
-                  {% if image.product_image_order_no == 1 %}
-                    <div class="owl-item active" style="width: 690px;">
-                      <div class="detail-full-item">
-                        <img src="/media/{{ image.product_photo }}"
-                             class="detail-full-item__img"
-                             alt="img">
-                      </div>
-                    </div>
-                  {% endif %}
-                {% endfor %}
+          <div class="owl-carousel owl-theme">
+            {% for image in product.product_images %}
+              <div class="item">
+                <div class="detail-full-item">
+                  <img src="/media/{{ image.product_photo }}"
+                       class="detail-full-item__img"
+                       alt="img">
+                </div>
               </div>
-            </div>
+
+            {% endfor %}
           </div>
+
         </div>
         <div class="d-flex align-items-center col-lg-6 col-xl-5 pl-lg-5 mb-5 order-1 order-lg-2">
           <div>
