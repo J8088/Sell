@@ -14,3 +14,6 @@ populate_db_with_*.py
 .rps
 media
 *.zip
+/static
+package-lock.json
+int_tests.py
