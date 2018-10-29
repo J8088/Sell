@@ -20,7 +20,7 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     # re_path(r'^(?P<category>)', include('shop.urls')),
-    re_path(r'^favicon\.ico', RedirectView.as_view(url='/static/img/favicon.ico'), name='favicon'),
+    re_path(r'^favicon\.jpg', RedirectView.as_view(url='/static/img/favicon.jpg'), name='favicon'),
     path('', include('shop.urls')),
     path('admin/', admin.site.urls)
 ]

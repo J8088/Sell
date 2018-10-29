@@ -5,7 +5,9 @@ from shop.views import catalogue_view, category_view, product_view
 
 # ''  (page-(\d+)/)?$  (?:page-(?P<page_number>\d+)/)?$  path('<category>/'...)
 urlpatterns = [
-    path('', catalogue_view, name='shop-catalogue'),
-    re_path(r'^category/(?P<category>[a-zA-Z0-9_.-]+)/?$', category_view, name='shop-category'),
-    re_path(r'^product/(?P<product>[a-zA-Z0-9_.-]+)/?$', product_view, name='shop-product'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('', catalogue_view, name='shop-catalogue'),
+                  re_path(r'^category/(?P<category>[a-zA-Z0-9_.-]+)/?$', category_view, name='shop-category'),
+                  re_path(r'^product/(?P<product>[a-zA-Z0-9_.-]+)/?$', product_view, name='shop-product'),
+                  path('about/', catalogue_view, name='shop-catalogue'),
+                  path('contacts/', catalogue_view, name='shop-catalogue'),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
