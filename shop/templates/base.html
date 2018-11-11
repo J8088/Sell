@@ -1,5 +1,6 @@
 {% load static %}
 {% load horizontal_menu from navigation %}
+{% load horizontal_secondary_menu from navigation %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +50,12 @@
           </div>
           <div class="col-sm-5 d-flex justify-content-end">
 
+            <div class="d-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
+              <div data-toggle="search" class="d-flex align-items-center nav-item navbar-icon-link">
+                <i class="fa fa-search"></i>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -64,16 +71,14 @@
 
         <div class="collapse navbar-collapse">
 
-          {% horizontal_menu items=categories current_category=currentCategory%}
+          {% horizontal_menu items=categories current_category=currentCategory %}
 
-          <div class="d-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
-            <div data-toggle="search" class="d-flex align-items-center nav-item navbar-icon-link">
-              <i class="fa fa-search"></i>
-            </div>
-          </div>
         </div>
       </div>
     </div>
+
+    {% horizontal_secondary_menu items=categories current_category=currentCategory  %}
+
   </header>
 {% endblock header %}
 

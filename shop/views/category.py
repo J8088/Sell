@@ -94,3 +94,10 @@ class CatalogueWithVerticalCategories(View):
             'breadcrumbPath': breadcrumb_path
         }
         return render(request, self.template_name, context)
+
+
+class CategoriesCatalogue(View):
+    template_name = 'categories-catalogue.html'
+
+    def get(self, request, category=None):
+        category_system = CategorySystem()
