@@ -21,7 +21,7 @@
             {#            <img alt="Shop by category"#}
             {#                 src={{ category.category_img }}#}
             {#                         class="acs_tile__image">#}
-            <span class="{% if current_category.category_code == category.category_code %}nav-link__name{% endif %}">{{ category.category_name }}</span>
+            <span class="nav-link__name {% if current_category.category_code == category.category_code %}active{% endif %}">{{ category.category_name }}</span>
           </a>
         </div>
       </div>

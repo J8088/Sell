@@ -38,6 +38,16 @@ body {
   letter-spacing: .02em;
 }
 
+.category_img_custom_1 {
+  height: 23px;
+  padding-bottom: 3px;
+}
+
+.category_img_custom_2 {
+  height: 20px;
+  padding-bottom: 3px
+}
+
 .svg-icon {
   width: 18px;
   height: 18px;
@@ -148,11 +158,29 @@ a:hover {
   border-bottom: solid #febd69 3px;
 }
 
-.nav-link__name:after {
+.nav-link__name.active:after {
   content: '';
   display: block;
   position: relative;
   right: 1px;
   top: 16px;
+  border-bottom: solid #febd69 3px;
+}
+
+.nav-link-item_secondary.active:after {
+  content: '';
+  display: block;
+  position: relative;
+  right: 1px;
+  top: 3px;
+  border-bottom: solid #febd69 3px;
+}
+
+.nav-link-item_secondary:not(.active):hover:after {
+  content: '';
+  display: block;
+  position: relative;
+  right: 1px;
+  top: 3px;
   border-bottom: solid #febd69 3px;
 }

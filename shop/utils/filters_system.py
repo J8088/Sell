@@ -48,7 +48,9 @@ class FilterSystem:
     def populate_filters_with_checked(cls, filters_with_groups, filters_query_dict):
         filter_codes = []
         for filter_group_dict in filters_with_groups:
-            filter_codes = filters_query_dict.getlist(filter_group_dict['filter_group']['filter_group_code'], [])
+            filters_list = filters_query_dict.getlist(filter_group_dict['filter_group']['filter_group_code'], [])
+            for filter_code in filters_list:
+                filter_codes.append(filter_code)
             for filter_dict in filter_group_dict['filters']:
                 if filter_dict['filter_code'] in filter_codes:
                     filter_dict.update({'checked': True})

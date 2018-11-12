@@ -1,3 +1,4 @@
+<form method="GET" class="sidebar-block__form mt-4 mt-lg-0">
 {% for filter_group_item in filters %}
   <div class="sidebar-block px-3 px-lg-0 mr-lg-4">
     <a data-toggle="collapse" href="#brandFilterMenu"
@@ -6,7 +7,7 @@
     <!-- Filter menu - this menu has .show class, so is expanded by default-->
     <div id="brandFilterMenu" class="expand-lg collapse show">
       <h6 class="sidebar-heading d-none d-lg-block">{{ filter_group_item.filter_group.filter_group_name }}</h6>
-      <form method="GET" class="sidebar-block__form mt-4 mt-lg-0">
+
         {% for filter_item in filter_group_item.filters %}
           <div class="form-group mb-1">
             <div class="custom-control custom-checkbox">
@@ -24,10 +25,11 @@
             </div>
           </div>
         {% endfor %}
-      </form>
+
     </div>
   </div>
 {% endfor %}
+</form>
 
 {% if 'price_filter' not in restricted %}
   <div class="sidebar-block px-3 px-lg-0 mr-lg-4">

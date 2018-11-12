@@ -44,7 +44,10 @@ class Catalogue(View):
         page = request.GET.get('page', '1')
         products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
         restricted = [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
-        ctx = {'categories': main_categories,
+        primary_categories = [category for category in main_categories if category.category_sector == 'primary']
+        secondary_categories = [category for category in main_categories if category.category_sector == 'secondary']
+        ctx = {'categories': primary_categories,
+               'secondary_categories': secondary_categories,
                'products': products_paginated,
                'page_range': page_range,
                'filters': filters_with_groups,

@@ -13,7 +13,10 @@ class Product(View):
         main_categories = CategorySystem().get_categories()
         product_dict = product_system.get_product_by_id(product)
         show_full = settings.PRODUCT_DETAILS['full']
+        description = settings.PRODUCT_DETAILS['descriptionTitle']
         categories = product_system.get_categories_by_product_id(product)
+        primary_categories = [category for category in main_categories if category.category_sector == 'primary']
+        secondary_categories = [category for category in main_categories if category.category_sector == 'secondary']
         breadcrumb_path = [
             {
                 'tokenId': token.category_id,
@@ -30,7 +33,8 @@ class Product(View):
             'tokenType': 'product'
         })
         ctx = {
-            'categories': main_categories,
+            'categories': primary_categories,
+            'secondary_categories': secondary_categories,
             'product': product_dict,
             'currentCategory': None,
             'showFull': show_full,

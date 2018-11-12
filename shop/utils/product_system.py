@@ -43,7 +43,7 @@ class ProductSystem:
             category_codes = []
         if filter_codes is None:
             filter_codes = []
-
+        #TODO Change logic in order to find image separately
         products_set = Product.objects.filter(productimage__product_image_order_no=1). \
             values('product_id', 'product_name', 'product_description',
                    'product_state_id', 'product_price', 'product_currency',

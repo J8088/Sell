@@ -21,8 +21,8 @@ $(window).scroll(function () {
 
 $(document).ready((e) => {
   const $form = $('form.sidebar-block__form');
-  const $countryFields = $form.find('input[type=checkbox]');
-  $countryFields.on('change', (e) => {
+  const $inputFields = $form.find('input[type=checkbox]');
+  $inputFields.on('change', (e) => {
     $form.submit();
   });
 });

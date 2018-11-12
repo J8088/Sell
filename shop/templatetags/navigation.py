@@ -10,6 +10,11 @@ def horizontal_menu(context, items, current_category):
     return {'menu_items': items, 'current_category': current_category}
 
 
+@register.inclusion_tag('horizontal-secondary-menu.html', takes_context=True)
+def horizontal_secondary_menu(context, items, current_category):
+    return {'menu_items': items, 'current_category': current_category}
+
+
 @register.inclusion_tag('vertical-menu.html', takes_context=True)
 def vertical_menu(context, items, current_category, child=None):
     return {'menu_items': items, 'current_category': current_category, 'child': child}

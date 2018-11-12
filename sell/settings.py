@@ -139,7 +139,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 
 PRODUCT_DETAILS = {
-    'full': False
+    'full': False,
+    'descriptionTitle': 'Характеристики'
 }
 
 DISPLAY_FEATURES_DICT = {

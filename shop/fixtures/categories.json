@@ -1,0 +1,14 @@
+[
+  {
+    "model": "shop.category",
+    "fields": {
+      "category_name": "Аксесуари Для Гарнітур",
+      "category_code": "bluetooth_headset_accessories",
+      "category_img": "img/icons8-bluetooth-50.png",
+      "category_description": "Аксесуари Для Гарнітур",
+      "category_sector": "secondary",
+      "active": true,
+      "visible": true
+    }
+  }
+]

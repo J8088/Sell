@@ -1,0 +1,15 @@
+{% load static %}
+
+<div class="navbar-secondary navbar-expand-lg">
+  <ul class="navbar-nav mx-auto navbar-secondary_nav">
+    {% for category in menu_items %}
+      <li class="nav-item">
+        <a href="/category/{{ category.category_code }}/" class="nav-link nav-link-item_secondary {% if current_category.category_code == category.category_code %} active {% endif %}">
+          <img src="{% static category.category_img %}" class="category_img_custom_1"
+               alt=""/>
+          {{ category.category_name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

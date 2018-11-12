@@ -18,6 +18,7 @@ class Category(models.Model):
     category_code = models.CharField(max_length=500, blank=True, null=True)
     category_img = models.CharField(max_length=1000, blank=True, null=True)
     category_description = models.CharField(max_length=500)
+    category_sector = models.CharField(max_length=100, blank=True, null=True)
     active = models.BooleanField(default=True)
     visible = models.BooleanField(default=False)
 
