@@ -12,10 +12,12 @@ window.jQuery = $;
 window.$ = $;
 
 $(window).scroll(function () {
-  if ($(this).scrollTop() > 65) {
+  if ($(this).scrollTop() > 55) {
     $('#mainNavBar').addClass('fixed-top');
+    $('body').css('padding-top', '55px');
   } else {
     $('#mainNavBar').removeClass('fixed-top');
+    $('body').css('padding-top', '0');
   }
 });
 

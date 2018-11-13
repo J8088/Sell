@@ -53,7 +53,7 @@ class Product(models.Model):
     product_price = models.FloatField()
     product_currency = models.CharField(max_length=20, default='грн')
     product_slug = models.CharField(max_length=100, default='00000')
-    product_seo = models.CharField(max_length=500, default=None)
+    product_seo = models.CharField(max_length=500, blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField()
     active = models.BooleanField(default=True)
