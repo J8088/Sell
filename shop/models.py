@@ -15,7 +15,7 @@ class Category(models.Model):
     category_id = models.AutoField(primary_key=True)
     category_parent_id = models.IntegerField(blank=True, null=True)
     category_name = models.CharField(max_length=500)
-    category_code = models.CharField(max_length=500, blank=True, null=True)
+    category_code = models.CharField(unique=True, max_length=255, default=None)
     category_img = models.CharField(max_length=1000, blank=True, null=True)
     category_description = models.CharField(max_length=500)
     category_sector = models.CharField(max_length=100, blank=True, null=True)
@@ -28,6 +28,9 @@ class Category(models.Model):
         data = model_to_dict(self)
         return data
 
+    def __str__(self):
+        return '{} ------ {} ------ {}'.format(self.category_name, self.category_code, self.category_id)
+
 
 class ProductStates(models.Model):
     product_state_id = models.AutoField(primary_key=True)
@@ -38,15 +41,19 @@ class ProductStates(models.Model):
     class Meta:
         db_table = 'shop_product_states'
 
+    def __str__(self):
+        return '{} ------ {} ------ {}'.format(self.product_state_name, self.product_state_code, self.product_state_id)
+
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=500)
-    product_description = models.CharField(max_length=500)
+    product_description = models.TextField(blank=True, null=True)
     product_state = models.ForeignKey(ProductStates, on_delete=models.CASCADE, blank=True, null=True)
     product_price = models.FloatField()
     product_currency = models.CharField(max_length=20, default='грн')
+    product_slug = models.CharField(max_length=100, default='00000')
+    product_seo = models.CharField(max_length=500, default=None)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField()
     active = models.BooleanField(default=True)
@@ -57,6 +64,9 @@ class Product(models.Model):
         """
         data = model_to_dict(self)
         return data
+
+    def __str__(self):
+        return '{} ------ {} ------ state: {}'.format(self.product_name, self.product_id, self.product_state)
 
 
 class ProductImage(models.Model):
@@ -75,6 +85,9 @@ class ProductImage(models.Model):
     class Meta:
         db_table = 'shop_product_image'
 
+    def __str__(self):
+        return '{} ------ {}'.format(self.product_photo, self.product.product_name)
+
 
 class ProductToCategory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -83,6 +96,9 @@ class ProductToCategory(models.Model):
 
     class Meta:
         db_table = 'shop_product_to_category'
+
+    def __str__(self):
+        return '{} ------ категорія: {}'.format(self.product.product_name, self.category.category_name)
 
 
 class FilterGroup(models.Model):
@@ -104,6 +120,9 @@ class FilterGroup(models.Model):
     class Meta:
         db_table = 'shop_filter_group'
 
+    def __str__(self):
+        return '{} ------ {} ------ {}'.format(self.filter_group_name, self.filter_group_code, self.filter_group_id)
+
 
 class Filter(models.Model):
     filter_group = models.ForeignKey(FilterGroup, on_delete=models.CASCADE)
@@ -123,6 +142,9 @@ class Filter(models.Model):
         data = model_to_dict(self, exclude=['filter_group'])
         return data
 
+    def __str__(self):
+        return '{} ------ {} ------ {}'.format(self.filter_name, self.filter_code, self.filter_id)
+
 
 class ProductToFilter(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -131,6 +153,9 @@ class ProductToFilter(models.Model):
 
     class Meta:
         db_table = 'shop_product_to_filter'
+
+    def __str__(self):
+        return '{} ------ {}'.format(self.product.product_name, self.filter.filter_name)
 
 
 class FilterToCategory(models.Model):
@@ -141,3 +166,5 @@ class FilterToCategory(models.Model):
     class Meta:
         db_table = 'shop_filter_to_category'
 
+    def __str__(self):
+        return '{} ------ {}'.format(self.category.category_name, self.filter.filter_name)

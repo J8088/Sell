@@ -37,9 +37,8 @@
                   </div>
                 </div>
                 <div class="py-2">
-                  <p class="text-muted text-sm mb-1">{{ product.product_name }}</p>
                   <h3 class="h6 text-uppercase mb-1">
-                    <a href="/product/{{ product.product_id }}" class="text-dark">{{ product.product_description }}</a>
+                    <a href="/product/{{ product.product_id }}" class="text-dark">{{ product.product_name }}</a>
                   </h3>
                   <span class="text-muted">{{ product.product_price }} {{ product.product_currency | upper }}.</span>
                 </div>

@@ -38,6 +38,7 @@ class Product(View):
             'product': product_dict,
             'currentCategory': None,
             'showFull': show_full,
+            'description': description,
             'breadcrumbPath': breadcrumb_path
         }
         return TemplateResponse(request, self.template_name, ctx)

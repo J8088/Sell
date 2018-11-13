@@ -47,7 +47,7 @@ class ProductSystem:
         products_set = Product.objects.filter(productimage__product_image_order_no=1). \
             values('product_id', 'product_name', 'product_description',
                    'product_state_id', 'product_price', 'product_currency',
-                   'active', 'visible', 'productimage__product_photo', 'category_id',
+                   'active', 'visible', 'productimage__product_photo',
                    'created_date', 'updated_date')
 
         if len(category_codes) > 0:
