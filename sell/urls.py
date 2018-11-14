@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.generic import RedirectView
+from django.template.response import HttpResponse
 
 urlpatterns = [
     # re_path(r'^(?P<category>)', include('shop.urls')),
     re_path(r'^favicon\.jpg', RedirectView.as_view(url='/static/img/favicon.jpg'), name='favicon'),
     path('', include('shop.urls')),
+    re_path(r'^google-site-verification-file\.html$',
+     lambda r: HttpResponse("google-site-verification: google-site-verification-file.html")),
     path('admin/', admin.site.urls)
 ]

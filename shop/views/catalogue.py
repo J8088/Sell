@@ -5,6 +5,7 @@ from ..utils.product_system import ProductSystem
 from ..utils.category_system import CategorySystem
 from ..utils.filters_system import FilterSystem
 from ..utils import get_paginator_items
+from ..utils.settings_system import SettingsSystem
 
 
 class Catalogue(View):
@@ -22,6 +23,12 @@ class Catalogue(View):
         category_system = CategorySystem()
         product_system = ProductSystem()
         main_categories = category_system.get_categories()
+
+        phone_numbers_set = SettingsSystem.get_settings('phone.number')
+        phone_numbers = list(map(lambda num: num.setting_value, phone_numbers_set))
+
+        greetings_set = SettingsSystem.get_settings('greeting')
+        greetings = list(map(lambda gr: gr.setting_value, greetings_set))
 
         """
         filters for displaying in the menu
@@ -52,5 +59,7 @@ class Catalogue(View):
                'page_range': page_range,
                'filters': filters_with_groups,
                'currentCategory': None,
-               'restricted': restricted}
+               'restricted': restricted,
+               'phone_numbers': phone_numbers,
+               'greetings': greetings}
         return TemplateResponse(request, self.template_name, ctx)

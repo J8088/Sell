@@ -168,3 +168,12 @@ class FilterToCategory(models.Model):
 
     def __str__(self):
         return '{} ------ {}'.format(self.category.category_name, self.filter.filter_name)
+
+
+class Settings(models.Model):
+    setting_name = models.CharField(max_length=100, default=None)
+    setting_code = models.CharField(max_length=100, default=None)
+    setting_value = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return '{} ------ {}'.format(self.setting_name, self.setting_code)

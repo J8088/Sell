@@ -18,6 +18,10 @@
 
   <link rel="icon" href="/favicon.jpg">
 
+  {% block ga %}
+    {% include "ga.html" %}
+  {% endblock ga %}
+
   <script src="{% static "js/dist/bundle.js" %}"></script>
 
 
@@ -33,6 +37,7 @@
     <div class="top-bar">
       <div class="container-fluid">
         <div class="row d-flex">
+
           <div class="col-sm-7">
             <ul class="list-inline mb-0">
               <li class="list-inline-item pr-3 mr-0">
@@ -40,22 +45,34 @@
                   <div class="svg-icon mr-2">
                     <img src="{% static "img/phone.svg" %}" alt=""/>
                   </div>
-                  <div>095-123-45-67</div>
+                  {% for phone in phone_numbers %}
+                    <span class="px-1">{{ phone }}</span>
+                  {% endfor %}
                 </div>
               </li>
               <li class="list-inline-item px-3 border-left d-none d-lg-inline-block">
-                Free shipping in Ukraine on all orders
+                {% for greeting in greetings %}
+                  <span class="px-1">{{ greeting }}</span>
+                {% endfor %}
               </li>
             </ul>
           </div>
           <div class="col-sm-5 d-flex justify-content-end">
 
-            <div class="d-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
-              <div data-toggle="search" class="d-flex align-items-center nav-item navbar-icon-link">
-                <i class="fa fa-search"></i>
-              </div>
-            </div>
 
+            <div class="top-bar-search">
+
+              <div class="input-group input-group-search">
+
+                <input type="text" class="form-control" aria-label="Search" placeholder="Знайти">
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                      <i class="fa fa-search"></i>
+                  </span>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +94,7 @@
       </div>
     </div>
 
-    {% horizontal_secondary_menu items=secondary_categories current_category=currentCategory  %}
+    {% horizontal_secondary_menu items=secondary_categories current_category=currentCategory %}
 
   </header>
 {% endblock header %}

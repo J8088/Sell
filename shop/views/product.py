@@ -3,6 +3,7 @@ from django.template.response import TemplateResponse
 from django.conf import settings
 from ..utils.product_system import ProductSystem
 from ..utils.category_system import CategorySystem
+from ..utils.settings_system import SettingsSystem
 
 
 class Product(View):
@@ -12,6 +13,13 @@ class Product(View):
         product_system = ProductSystem()
         main_categories = CategorySystem().get_categories()
         product_dict = product_system.get_product_by_id(product)
+
+        phone_numbers_set = SettingsSystem.get_settings('phone.number')
+        phone_numbers = list(map(lambda num: num.setting_value, phone_numbers_set))
+
+        greetings_set = SettingsSystem.get_settings('greeting')
+        greetings = list(map(lambda gr: gr.setting_value, greetings_set))
+
         show_full = settings.PRODUCT_DETAILS['full']
         description = settings.PRODUCT_DETAILS['descriptionTitle']
         categories = product_system.get_categories_by_product_id(product)
@@ -39,6 +47,8 @@ class Product(View):
             'currentCategory': None,
             'showFull': show_full,
             'description': description,
-            'breadcrumbPath': breadcrumb_path
+            'breadcrumbPath': breadcrumb_path,
+            'phone_numbers': phone_numbers,
+            'greetings': greetings
         }
         return TemplateResponse(request, self.template_name, ctx)
