@@ -61,17 +61,22 @@
 
 
             <div class="top-bar-search">
+              <form id="searchForm" method="GET">
+                <div class="input-group input-group-search">
 
-              <div class="input-group input-group-search">
-
-                <input type="text" class="form-control" aria-label="Search" placeholder="Знайти">
-                <div class="input-group-append">
+                  <input type="text"
+                         name="q"
+                         class="form-control"
+                         aria-label="Search"
+                         placeholder="Знайти"
+                         value={{ query }}>
+                  <div class="input-group-append">
                   <span class="input-group-text">
                       <i class="fa fa-search"></i>
                   </span>
+                  </div>
                 </div>
-              </div>
-
+              </form>
             </div>
           </div>
         </div>

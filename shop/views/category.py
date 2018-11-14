@@ -26,6 +26,8 @@ class Category(View):
         category_object = category_system.get_single_category_by_code(category)
         main_categories = category_system.get_categories()
 
+        query = self.request.GET.get('q')
+
         phone_numbers_set = SettingsSystem.get_settings('phone.number')
         phone_numbers = list(map(lambda num: num.setting_value, phone_numbers_set))
 
@@ -48,7 +50,7 @@ class Category(View):
             filter_objects = FilterSystem.get_filters_by_categories([category_object.category_code])
             filters = list(map(lambda fl: fl.filter_code, filter_objects))
 
-        products = product_system.get_products_by_categories_filters([category_object.category_code], filters)
+        products = product_system.get_products_by_categories_filters([category_object.category_code], filters, query=query)
         page = request.GET.get('page', '1')
         products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
         restricted = [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
@@ -63,7 +65,8 @@ class Category(View):
                'currentCategory': category_object,
                'restricted': restricted,
                'phone_numbers': phone_numbers,
-               'greetings': greetings}
+               'greetings': greetings,
+               'query': query or ''}
         return TemplateResponse(request, self.template_name, ctx)
 
 

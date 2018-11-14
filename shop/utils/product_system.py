@@ -1,5 +1,9 @@
+import operator
+from functools import reduce
+from django.db.models import Q
 from shop.models import Product, ProductImage, Category
 from shop.utils.category_system import CategorySystem
+
 
 
 class ProductSystem:
@@ -32,21 +36,22 @@ class ProductSystem:
     def get_products_by_category(self, category_code):
         return Product.objects.filter(producttocategory__category__category_code=category_code)
 
-    def get_products_by_categories_filters(self, category_codes=None, filter_codes=None):
+    def get_products_by_categories_filters(self, category_codes=None, filter_codes=None, query=None):
         """
 
         :param category_codes: list of category codes
         :param filter_codes: list of filter codes
+        :param query: search query
         :return: products QuerySet
         """
         if category_codes is None:
             category_codes = []
         if filter_codes is None:
             filter_codes = []
-        #TODO Change logic in order to find image separately
+        # TODO Change logic in order to find image separately
         products_set = Product.objects.filter(productimage__product_image_order_no=1). \
             values('product_id', 'product_name', 'product_description',
-                   'product_state_id', 'product_price', 'product_currency',
+                   'product_state_id', 'product_price', 'product_currency', 'product_slug', 'product_seo',
                    'active', 'visible', 'productimage__product_photo',
                    'created_date', 'updated_date')
 
@@ -56,6 +61,19 @@ class ProductSystem:
         if len(filter_codes) > 0:
             products_set = products_set.filter(producttofilter__filter__filter_code__in=filter_codes)
         products_set = products_set.distinct()
+
+        if query:
+            query_list = query.split()
+            products_set = products_set.filter(
+                reduce(operator.and_,
+                       (Q(product_name__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(product_description__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(product_price__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(product_slug__icontains=q) for q in query_list))
+            )
 
         return products_set
 

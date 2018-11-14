@@ -22,11 +22,27 @@ $(window).scroll(function () {
 });
 
 $(document).ready((e) => {
-  const $form = $('form.sidebar-block__form');
-  const $inputFields = $form.find('input[type=checkbox]');
-  $inputFields.on('change', (e) => {
-    $form.submit();
-  });
+
+  applyFilterForm();
+  applySearchForm();
+
+  function applyFilterForm() {
+    const $form = $('form.sidebar-block__form');
+    const $inputFields = $form.find('input[type=checkbox]');
+    $inputFields.on('change', (e) => {
+      $form.submit();
+    });
+  }
+
+  function applySearchForm() {
+    const $form = $('#searchForm');
+    const $inputFields = $form.find('input[type=text]');
+    $inputFields.on('keyup', (e) => {
+      if (e.keyCode === 13) {
+        $form.submit();
+      }
+    });
+  }
 });
 
 $(document).ready(function () {
