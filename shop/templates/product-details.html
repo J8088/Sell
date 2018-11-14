@@ -57,7 +57,9 @@
               {% endif %}
 
             </div>
-            <p class="mb-4 text-muted">{{ product.product_description }}</p>
+            <p class="mb-4 text-muted">
+              <pre>{{ product.product_description }}</pre>
+            </p>
 
             {% if showFull %}
               <form action="#">
