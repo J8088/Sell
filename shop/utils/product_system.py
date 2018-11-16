@@ -75,6 +75,8 @@ class ProductSystem:
                        (Q(product_slug__icontains=q) for q in query_list))
             )
 
+        products_set = products_set.order_by('-updated_date')
+
         return products_set
 
     def get_product_by_id(self, product_id):

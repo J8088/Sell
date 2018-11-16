@@ -7,7 +7,7 @@ from ..utils.settings_system import SettingsSystem
 
 
 class Product(View):
-    template_name='product-details.html'
+    template_name = 'product-details.html'
 
     def get(self, request, product=None):
         product_system = ProductSystem()
@@ -19,6 +19,29 @@ class Product(View):
 
         greetings_set = SettingsSystem.get_settings('greeting')
         greetings = list(map(lambda gr: gr.setting_value, greetings_set))
+
+        site_name_set = SettingsSystem.get_settings('site.name')
+        site_name = next(iter(list(map(lambda item: item.setting_value, site_name_set))), '')
+
+        title_seo_set = SettingsSystem.get_settings('product.seo.title')
+        title_seo = "{} {} – {}".format(product_dict['product_name'],
+                                        next(iter(list(map(lambda item: item.setting_value, title_seo_set))), ''),
+                                        site_name)
+
+        description_seo_set = SettingsSystem.get_settings('product.seo.description')
+        description_seo = "{} {}".format(product_dict['product_name'],
+                                         next(iter(list(map(lambda item: item.setting_value, description_seo_set))),
+                                              ''))
+
+        keywords_seo_set = SettingsSystem.get_settings('product.seo.keywords')
+        keywords_seo = "{} {}".format(product_dict['product_name'],
+                                      next(iter(list(map(lambda item: item.setting_value, keywords_seo_set))),
+                                           ''))
+
+        og_title_seo_set = SettingsSystem.get_settings('product.seo.title')
+        og_title_seo = "{} {}".format(product_dict['product_name'],
+                                      next(iter(list(map(lambda item: item.setting_value, og_title_seo_set))),
+                                           ''))
 
         show_full = settings.PRODUCT_DETAILS['full']
         description = settings.PRODUCT_DETAILS['descriptionTitle']
@@ -49,6 +72,10 @@ class Product(View):
             'description': description,
             'breadcrumbPath': breadcrumb_path,
             'phone_numbers': phone_numbers,
-            'greetings': greetings
+            'greetings': greetings,
+            'title_seo': title_seo,
+            'description_seo': description_seo,
+            'keywords_seo': keywords_seo,
+            'og_title_seo': og_title_seo
         }
         return TemplateResponse(request, self.template_name, ctx)

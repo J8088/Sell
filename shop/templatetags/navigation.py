@@ -33,7 +33,7 @@ def vertical_filters(context, items, current_category, current_filters=None, res
 @register.inclusion_tag('breadcrumbs.html', takes_context=True)
 def breadcrumb(context, path, token):
     breadcrumbs = [
-        {'id': '', 'name': 'SELL', 'code': 'sell', 'url': '/'}
+        {'id': '', 'name': 'OmniCase', 'code': 'sell', 'url': '/'}
     ]
 
     if path:

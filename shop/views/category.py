@@ -34,6 +34,17 @@ class Category(View):
         greetings_set = SettingsSystem.get_settings('greeting')
         greetings = list(map(lambda gr: gr.setting_value, greetings_set))
 
+        site_name_set = SettingsSystem.get_settings('site.name')
+        site_name = next(iter(list(map(lambda item: item.setting_value, site_name_set))), '')
+
+        title_seo_base_set = SettingsSystem.get_settings('title.seo.base')
+        title_seo_base = "{} - {}".format(
+            next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name)
+
+        description_seo_base_set = SettingsSystem.get_settings('description.seo.base')
+        description_seo_base = "{} - {}".format(
+            next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''), site_name)
+
         """
         filters for displaying in the menu
         """
@@ -66,7 +77,11 @@ class Category(View):
                'restricted': restricted,
                'phone_numbers': phone_numbers,
                'greetings': greetings,
-               'query': query or ''}
+               'query': query or '',
+               'title_seo': title_seo_base,
+               'description_seo': description_seo_base,
+               'keywords_seo': '',
+               'og_title_seo': ''}
         return TemplateResponse(request, self.template_name, ctx)
 
 

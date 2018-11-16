@@ -18,12 +18,23 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.generic import RedirectView
 from django.template.response import HttpResponse
+from django.contrib.sitemaps.views import sitemap
+from shop.views.site_map import ProductSitemap, HomeSitemap, CategorySitemap
+
+sitemaps = {
+    'home': HomeSitemap(),
+    'product': ProductSitemap(),
+    'category': CategorySitemap()
+}
 
 urlpatterns = [
     # re_path(r'^(?P<category>)', include('shop.urls')),
     re_path(r'^favicon\.jpg', RedirectView.as_view(url='/static/img/favicon.jpg'), name='favicon'),
     path('', include('shop.urls')),
     re_path(r'^google-site-verification-file\.html$',
-     lambda r: HttpResponse("google-site-verification: google-site-verification-file.html")),
-    path('admin/', admin.site.urls)
+            lambda r: HttpResponse("google-site-verification: google-site-verification-file.html")),
+    path('admin/', admin.site.urls),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
+
 ]

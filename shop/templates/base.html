@@ -1,9 +1,12 @@
 {% load static %}
 {% load horizontal_menu from navigation %}
 {% load horizontal_secondary_menu from navigation %}
+{% load seo_header from seo %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% seo_header  title_seo=title_seo description_seo=description_seo keywords_seo=keywords_seo og_title_seo=og_title_seo%}
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,13 +26,6 @@
   {% endblock ga %}
 
   <script src="{% static "js/dist/bundle.js" %}"></script>
-
-
-  {% if title %}
-    <title>{{ title }}</title>
-  {% else %}
-    <title>Sell</title>
-  {% endif %}
 </head>
 <body>
 {% block header %}
