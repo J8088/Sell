@@ -158,18 +158,6 @@ class ProductToFilter(models.Model):
         return '{} ------ {}'.format(self.product.product_name, self.filter.filter_name)
 
 
-class FilterToCategory(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    filter = models.ForeignKey(Filter, on_delete=models.CASCADE)
-    created_date = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'shop_filter_to_category'
-
-    def __str__(self):
-        return '{} ------ {}'.format(self.category.category_name, self.filter.filter_name)
-
-
 class Settings(models.Model):
     setting_name = models.CharField(max_length=100, default=None)
     setting_code = models.CharField(max_length=100, default=None)

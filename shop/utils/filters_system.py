@@ -11,9 +11,10 @@ class FilterSystem:
         if category_codes is None:
             category_codes = []
 
-        filters_set = Filter.objects.all()
+        filters_set = Filter.objects.filter(visible=True, producttofilter__product__visible=True)
         if len(category_codes) > 0:
-            filters_set = filters_set.filter(filtertocategory__category__category_code__in=category_codes)
+            product_to_category = ProductToCategory.objects.filter(category__category_code__in=category_codes)
+            filters_set = filters_set.filter(producttofilter__product__producttocategory__in=product_to_category)
 
         return filters_set
 
@@ -23,11 +24,10 @@ class FilterSystem:
         if category_codes is None:
             category_codes = []
         filter_groups_set = FilterGroup.objects.all()
-        filters_set = Filter.objects.filter(visible=True)
+        filters_set = Filter.objects.filter(visible=True, producttofilter__product__visible=True)
         product_to_filter = ProductToFilter.objects.filter(product__visible=True)
 
         if len(category_codes) > 0:
-            filters_set = filters_set.filter(filtertocategory__category__category_code__in=category_codes)
             product_to_category = ProductToCategory.objects.filter(category__category_code__in=category_codes)
             product_to_filter = product_to_filter.filter(product__producttocategory__in=product_to_category)
 
