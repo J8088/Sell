@@ -23,6 +23,7 @@ class Catalogue(View):
         category_system = CategorySystem()
         product_system = ProductSystem()
         main_categories = category_system.get_categories()
+        page = request.GET.get('page', None)
 
         query = self.request.GET.get('q')
 
@@ -36,10 +37,15 @@ class Catalogue(View):
         site_name = next(iter(list(map(lambda item: item.setting_value, site_name_set))), '')
 
         title_seo_base_set = SettingsSystem.get_settings('title.seo.base')
-        title_seo_base = "{} - {}".format(next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name)
+        page_str = 'стор.{}'.format(page) if page else ''
+        title_seo_base = "{} - {}{}".format(next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name, page_str)
 
         description_seo_base_set = SettingsSystem.get_settings('description.seo.base')
         description_seo_base = "{} - {}".format(next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''), site_name)
+
+        keywords_seo_base_set = SettingsSystem.get_settings('keywords.seo.base')
+        keywords_seo_base = "{}".format(
+            next(iter(list(map(lambda item: item.setting_value, keywords_seo_base_set))), ''))
 
         """
         filters for displaying in the menu
@@ -59,7 +65,6 @@ class Catalogue(View):
         products = product_system.get_products_by_categories_filters(
             list(map(lambda cat: cat.category_code, main_categories)),
             filters, query=query)
-        page = request.GET.get('page', '1')
         products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
         restricted = [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
         primary_categories = [category for category in main_categories if category.category_sector == 'primary']
@@ -76,6 +81,6 @@ class Catalogue(View):
                'query': query or '',
                'title_seo': title_seo_base,
                'description_seo': description_seo_base,
-               'keywords_seo': '',
+               'keywords_seo': keywords_seo_base,
                'og_title_seo': ''}
         return TemplateResponse(request, self.template_name, ctx)

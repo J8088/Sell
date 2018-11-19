@@ -29,7 +29,7 @@ sitemaps = {
 
 urlpatterns = [
     # re_path(r'^(?P<category>)', include('shop.urls')),
-    re_path(r'^favicon\.jpg', RedirectView.as_view(url='/static/img/favicon.jpg'), name='favicon'),
+    re_path(r'^favicon\.ico', RedirectView.as_view(url='/static/img/favicon.ico'), name='favicon'),
     path('', include('shop.urls')),
     re_path(r'^google-site-verification-file\.html$',
             lambda r: HttpResponse("google-site-verification: google-site-verification-file.html")),

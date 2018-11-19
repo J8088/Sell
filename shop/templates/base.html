@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css"
         integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
 
-  <link rel="icon" href="/favicon.jpg">
+  <link rel="icon" href="/favicon.ico">
 
   {% block ga %}
     {% include "ga.html" %}
@@ -82,12 +82,20 @@
          class="navbar navbar-expand-lg navbar-sticky navbar-airy navbar-light bg-white bg-fixed-white">
       <div class="container-fluid">
         <div class="navbar-brand">
-          <a href="/">
-            <img src="{% static "img/sell.svg" %}" alt="">
+          <a rel="canonical" href="/">
+            <img src="{% static "img/omni.svg" %}" alt="">
           </a>
         </div>
 
-        <div class="collapse navbar-collapse">
+        <button type="button" data-toggle="collapse"
+                data-target="#navbarCollapse" aria-controls="navbarCollapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                class="navbar-toggler navbar-toggler-right collapsed">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <div id="navbarCollapse" class="collapse navbar-collapse">
 
           {% horizontal_menu items=categories current_category=currentCategory %}
 

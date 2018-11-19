@@ -19,6 +19,7 @@ class Category(models.Model):
     category_img = models.CharField(max_length=1000, blank=True, null=True)
     category_description = models.CharField(max_length=500)
     category_sector = models.CharField(max_length=100, blank=True, null=True)
+    category_seo = models.CharField(max_length=500, blank=True, null=True)
     active = models.BooleanField(default=True)
     visible = models.BooleanField(default=False)
 
@@ -48,6 +49,7 @@ class ProductStates(models.Model):
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=500)
+    product_code = models.CharField(unique=True, max_length=255, blank=True, null=True)
     product_description = models.TextField(blank=True, null=True)
     product_state = models.ForeignKey(ProductStates, on_delete=models.CASCADE, blank=True, null=True)
     product_price = models.FloatField()

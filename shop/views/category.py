@@ -21,6 +21,7 @@ class Category(View):
            :param category:
            :return:
            """
+        page = request.GET.get('page', None)
         category_system = CategorySystem()
         product_system = ProductSystem()
         category_object = category_system.get_single_category_by_code(category)
@@ -34,16 +35,18 @@ class Category(View):
         greetings_set = SettingsSystem.get_settings('greeting')
         greetings = list(map(lambda gr: gr.setting_value, greetings_set))
 
-        site_name_set = SettingsSystem.get_settings('site.name')
-        site_name = next(iter(list(map(lambda item: item.setting_value, site_name_set))), '')
+        title_seo_base_set = SettingsSystem.get_settings('title.seo.category')
+        page_str = 'стор.{}'.format(page) if page else ''
+        title_seo_base = "{} {} {}".format(category_object.category_seo,
+            next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), page_str)
 
-        title_seo_base_set = SettingsSystem.get_settings('title.seo.base')
-        title_seo_base = "{} - {}".format(
-            next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name)
+        description_seo_base_set = SettingsSystem.get_settings('description.seo.category')
+        description_seo_base = "{} {}".format(category_object.category_seo,
+            next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''))
 
-        description_seo_base_set = SettingsSystem.get_settings('description.seo.base')
-        description_seo_base = "{} - {}".format(
-            next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''), site_name)
+        keywords_seo_base_set = SettingsSystem.get_settings('keywords.seo.category')
+        keywords_seo_base = "{} {}".format(category_object.category_seo,
+            next(iter(list(map(lambda item: item.setting_value, keywords_seo_base_set))), ''))
 
         """
         filters for displaying in the menu
@@ -62,7 +65,6 @@ class Category(View):
             filters = list(map(lambda fl: fl.filter_code, filter_objects))
 
         products = product_system.get_products_by_categories_filters([category_object.category_code], filters, query=query)
-        page = request.GET.get('page', '1')
         products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
         restricted = [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
         primary_categories = [category for category in main_categories if category.category_sector == 'primary']
@@ -80,7 +82,7 @@ class Category(View):
                'query': query or '',
                'title_seo': title_seo_base,
                'description_seo': description_seo_base,
-               'keywords_seo': '',
+               'keywords_seo': keywords_seo_base,
                'og_title_seo': ''}
         return TemplateResponse(request, self.template_name, ctx)
 
