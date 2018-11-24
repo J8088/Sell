@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="row">
+      <div class="container-fluid">
+        <section class="cover fullscreen image-bg overlay">
+            <div class="container v-align-transform">
+                <div class="row">
+                    <div class="d-flex justify-content-center mb-5 mt-3">
+                        <div class="feature bordered text-center">
+                            <h4 class="uppercase">Login Here</h4>
+                            <form class="text-left" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="user_field ">
+                                    <label for="">Username</label>
+                                    <input class="mb0" type="text"  name="username"/>
+                                 </div>
+                                 <div class="user_field ">
+                                    <label for="">Password</label>
+                                    <input class="mb0" type="password"  name="password" />
+                                 </div>
+
+                                <input type="submit" value="Login" />
+                                {% if msg %}
+                                    <div class="">
+                                        <p class="mb0">{{msg}}</p>
+                                    </div>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end of row-->
+            </div>
+            <!--end of container-->
+        </section>
+    </div>
+    </div>
+
+{% endblock %}
