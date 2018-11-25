@@ -20,6 +20,8 @@ from django.views.generic import RedirectView
 from django.template.response import HttpResponse
 from django.contrib.sitemaps.views import sitemap
 from shop.views.site_map import ProductSitemap, HomeSitemap, CategorySitemap
+from shop.views import auth
+from crawler import views
 
 sitemaps = {
     'home': HomeSitemap(),
@@ -34,7 +36,10 @@ urlpatterns = [
     re_path(r'^google-site-verification-file\.html$',
             lambda r: HttpResponse("google-site-verification: google-site-verification-file.html")),
     path('admin/', admin.site.urls),
+    re_path(r'^login/$', auth.Login.as_view(), name='login'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
+    re_path(r'^crawler/api/crawl/', views.crawl, name='crawl'),
+    path('crawler/', views.index, name='crawl-index'),
 
 ]

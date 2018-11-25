@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'scraper',
+    'crawler',
     'shop',
 ]
 
@@ -138,6 +138,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+print("__file__={0}, ==> STATIC_ROOT => {1}".format(__file__, STATIC_ROOT))
 STATIC_URL = '/static/'
 
 PRODUCT_DETAILS = {

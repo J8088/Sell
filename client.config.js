@@ -6,7 +6,7 @@ module.exports = {
   entry: './shop/static/js/src/main.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'shop/static/js/dist')
+    path: path.resolve(__dirname, 'shop/static/js/shop/dist')
   },
   module: {
     rules: [

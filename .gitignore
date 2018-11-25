@@ -3,6 +3,7 @@
 .DS_Store
 node_modules
 *.pyc
+*.log
 settings_*.py
 /.project
 /build
@@ -17,3 +18,4 @@ media
 /static
 package-lock.json
 int_tests.py
+test_imgs

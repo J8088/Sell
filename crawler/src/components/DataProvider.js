@@ -19,9 +19,15 @@ class DataProvider extends Component {
         if (response.status !== 200) {
           return this.setState({placeholder: "Something went wrong"});
         }
+
         return response.json();
       })
-      .then(data => this.setState({data: data, loaded: true}));
+      .then(data => {
+        if(data.error){
+          return this.setState({placeholder: data.error});
+        }
+        this.setState({data: data, loaded: true});
+      });
   };
 
   processData(handler) {
@@ -41,7 +47,6 @@ class DataProvider extends Component {
 
 
   render() {
-    this.processData(this.fetchData);
     const {data, loaded, placeholder} = this.state;
     return loaded ? this.props.render(data) : <p>{placeholder}</p>;
   }

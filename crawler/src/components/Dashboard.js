@@ -13,6 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import GridList from '@material-ui/core/GridList';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import GridListTile from '@material-ui/core/GridListTile';
 import {mainListItems, secondaryListItems} from './listItems';
 import UrlsTable from './UrlsTable';
 import Grid from '@material-ui/core/Grid';
@@ -27,7 +31,33 @@ class Dashboard extends React.Component {
   state = {
     dynamic: false,
     open: true,
-    period: 5
+    // crawlUrl: 'http://quotes.toscrape.com/',
+    crawlUrl: 'the crawl url',
+    crawlerEndpoint: "api/crawl/"
+  };
+
+  runCrawler = (url) => {
+    const formData = new FormData();
+    formData.append('url', url);
+
+    return fetch(
+      this.state.crawlerEndpoint, {
+        method: 'POST',
+        body: formData
+      }
+    ).then(response => {
+      if (response.status !== 200) {
+        return this.setState({placeholder: "Something went wrong"});
+      }
+
+      return response.json();
+    })
+      .then(data => {
+        if (data.error) {
+          return this.setState({placeholder: data.error});
+        }
+        this.setState({data: data, loaded: true});
+      });
   };
 
   handleDrawerOpen = () => {
@@ -38,18 +68,15 @@ class Dashboard extends React.Component {
     this.setState({open: false});
   };
 
-  handleChange = (event, checked) => {
-    this.setState({dynamic: checked});
+  handleStartCrawler = () => {
+    console.log(this.state.crawlUrl);
+    this.runCrawler(this.state.crawlUrl);
   };
 
-  handleChangePriod = (event) => {
-    this.setState({period: event.target.value > 3 || !event.target.value ? event.target.value : 3});
+  handleChangeUrl = (event) => {
+    this.setState({crawlUrl: event.target.value});
   };
 
-  handleClick = () => {
-    this.setState(() => {
-    });
-  };
 
   render() {
     const {classes} = this.props;
@@ -81,7 +108,7 @@ class Dashboard extends React.Component {
                 noWrap
                 className={classes.title}
               >
-                Do Register
+                Crawler
               </Typography>
             </Toolbar>
           </AppBar>
@@ -102,44 +129,37 @@ class Dashboard extends React.Component {
           </Drawer>
           <main className={classes.content}>
             <div className={classes.appBarSpacer}/>
+
             <Grid container spacing={24}>
-              <Grid item xs={8}>
-                <Typography variant="h4" gutterBottom component="h2">
-                  Registered Urls
-                </Typography>
-              </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={12} sm={10}>
                 <TextField
-                  id="check-interval"
-                  label="Check Interval, sec"
-                  type="number"
-                  disabled={this.state.dynamic}
-                  onChange={this.handleChangePriod}
-                  value={this.state.period}
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  required
+                  id="url"
+                  name="url"
+                  label="Url"
+                  value={this.state.crawlUrl}
+                  onChange={this.handleChangeUrl}
+                  fullWidth
+                  autoComplete="fname"
                 />
               </Grid>
-              <Grid item xs={2}>
-                <FormGroup row>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={this.state.dynamic}
-                        onChange={this.handleChange}
-                        value="dynamic"
-                        color="primary"
-                      />
-                    }
-                    label={this.state.dynamic ? 'Dynamic' : 'Static'}
-                  />
-                </FormGroup>
+              <Grid item xs={12} sm={1}>
+                <Button variant="contained" color="primary"
+                        onClick={this.handleStartCrawler}
+                        className={classes.button}>
+                  Start
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={1}>
+                <Button variant="contained" color="primary"
+                        className={classes.button}>
+                  Save
+                </Button>
               </Grid>
             </Grid>
+
             <div className={classes.tableContainer}>
-              <DataProvider endpoint="api/addresses"
+              <DataProvider endpoint="api/crawl"
                             dynamic={this.state.dynamic}
                             period={this.state.period}
                             render={data => <UrlsTable data={data}/>}/>
