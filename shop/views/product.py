@@ -23,6 +23,9 @@ class Product(View):
         site_name_set = SettingsSystem.get_settings('site.name')
         site_name = next(iter(list(map(lambda item: item.setting_value, site_name_set))), '')
 
+        footer_info_set = SettingsSystem.get_settings('footer.info')
+        footer_info = next(iter(list(map(lambda item: item.setting_value, footer_info_set))), '')
+
         title_seo_set = SettingsSystem.get_settings('product.seo.title')
         title_seo = "{} {} – {}".format(product_dict['product_name'],
                                         next(iter(list(map(lambda item: item.setting_value, title_seo_set))), ''),
@@ -67,6 +70,7 @@ class Product(View):
             'categories': primary_categories,
             'secondary_categories': secondary_categories,
             'product': product_dict,
+            'footer_info': footer_info,
             'currentCategory': None,
             'showFull': show_full,
             'description': description,

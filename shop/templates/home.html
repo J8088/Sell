@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load carousel from home_components %}
+{% load home_products_section from home_components %}
+{% load carousel_categories_section from home_components %}
+
+{% block content %}
+
+
+  <div id="home-block">
+    {% carousel_categories_section categories=carousel_categories section_title=categories_header %}
+
+    {% home_products_section products=new_products section_title=new_products_header %}
+
+    {% home_products_section products=top_products section_title=top_products_header %}
+  </div>
+
+
+{% endblock content %}

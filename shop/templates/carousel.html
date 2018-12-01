@@ -1,0 +1,9 @@
+<section class="main-carousel">
+  <div id="{{ section_id }}" class="owl-carousel owl-theme owl-dots-modern home-slider owl-loaded owl-drag">
+    {% for carousel_item in carousel_items %}
+      <div class="item">
+        <img class="home-carousel__img" src="/media/{{ carousel_item.carousel_photo }}"/>
+      </div>
+    {% endfor %}
+  </div>
+</section>

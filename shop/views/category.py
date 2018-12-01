@@ -35,6 +35,9 @@ class Category(View):
         greetings_set = SettingsSystem.get_settings('greeting')
         greetings = list(map(lambda gr: gr.setting_value, greetings_set))
 
+        footer_info_set = SettingsSystem.get_settings('footer.info')
+        footer_info = next(iter(list(map(lambda item: item.setting_value, footer_info_set))), '')
+
         title_seo_base_set = SettingsSystem.get_settings('title.seo.category')
         page_str = 'стор.{}'.format(page) if page else ''
         title_seo_base = "{} {} {}".format(category_object.category_seo,
@@ -75,6 +78,7 @@ class Category(View):
                'products': products_paginated,
                'page_range': page_range,
                'filters': filters_with_groups,
+               'footer_info': footer_info,
                'currentCategory': category_object,
                'restricted': restricted,
                'phone_numbers': phone_numbers,

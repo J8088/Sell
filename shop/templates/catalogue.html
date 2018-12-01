@@ -14,34 +14,31 @@
   </section>
   <div class="container">
     <div class="row">
-      <div class="products-grid col-xl-9 col-lg-8 order-lg-2">
+      <div class="col-xl-9 col-lg-8 order-lg-2">
         <div class="row">
 
           {% for product in products %}
             <div class="col-xl-4 col-sm-6">
               <div class="product">
                 <div class="product-image">
-                  <img src="/media/{{ product.productimage__product_photo }}"
-                       alt="product" class="img-fluid">
-                  <div class="product-hover-overlay">
-                    <a rel="canonical" href="/product/{{ product.product_id }}" class="product-hover-overlay-link"></a>
-                    <div class="product-hover-overlay-buttons">
-                      <a href="#" class="btn btn-outline-dark btn-product-left"><i
-                              class="fa fa-shopping-cart"></i>
-                      </a>
-                      <a rel="canonical" href="/product/{{ product.product_id }}" class="btn btn-color btn-buy">
-                        <i class="fa-search fa"></i>
-                        <span class="btn-buy-label ml-2">Глянути</span>
-                      </a>
-                    </div>
-                  </div>
+                  <a rel="canonical" href="/product/{{ product.product_id }}">
+                      <img src="/media/{{ product.productimage__product_photo }}"
+                           alt="product" class="img-fluid">
+                    </a>
                 </div>
-                <div class="py-2">
-                  <h1 class="h6 text-uppercase mb-1">
+                <div class="py-3 product-info">
+                  <h1 class="h6 text-uppercase product-info_text mb-1">
                     <a rel="canonical" href="/product/{{ product.product_id }}" class="text-dark">{{ product.product_name }}</a>
                   </h1>
-                  <span class="price">{{ product.product_price }} </span>
-                  <span class="price">{{ product.product_currency | lower }}</span>
+                  <div class="row pr-2 pl-2">
+                    <div class="col-xl-6 col-lg-6 order-lg-6">
+                      <span class="price">{{ product.product_price }} </span>
+                      <span class="price">{{ product.product_currency | lower }}</span>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 order-lg-6">
+                       <div class="instocktiny">{{ product.product_state__product_state_name}}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

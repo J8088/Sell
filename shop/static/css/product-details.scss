@@ -14,29 +14,10 @@
   border-radius: 0.3em;
 }
 
-.owl-prev-button {
+.owl-button {
   position: absolute;
   top: 230px;
-  bottom: 0;
   display: none;
-  zoom: 1;
-  margin: 0;
-  width: 50px;
-  height: 50px;
-  line-height: 45px;
-  text-align: center;
-  font-size: 1em;
-  opacity: .9;
-  border-radius: 50px;
-  border: 1px solid #F48000;
-  color: #F48000;
-}
-
-.owl-next-button {
-  display: none;
-  left: 640px;
-  position: absolute;
-  top: 230px;
   zoom: 1;
   margin: 0;
   width: 50px;
@@ -49,10 +30,17 @@
   border: 1px solid #F48000;
   transition: all .3s linear;
   color: #F48000;
+  outline: none !important;
+}
+
+.owl-next-button {
+  left: 640px;
 }
 
 .owl-next-button:focus,
-.owl-prev-button:focus {outline:0;}
+.owl-prev-button:focus {
+  outline: 0;
+}
 
 .owl-display {
   display: inline-block !important;

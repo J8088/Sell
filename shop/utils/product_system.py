@@ -34,7 +34,11 @@ class ProductSystem:
         return Product.objects.filter(category__category_id__in=category_ids)
 
     def get_products_by_category(self, category_code):
-        return Product.objects.filter(producttocategory__category__category_code=category_code)
+        return Product.objects.filter(productimage__product_image_order_no=1,producttocategory__category__category_code=category_code).\
+            values('product_id', 'product_name', 'product_description',
+                   'product_state_id', 'product_state__product_state_name', 'product_price', 'product_currency', 'product_slug', 'product_seo',
+                   'active', 'visible', 'productimage__product_photo',
+                   'created_date', 'updated_date')
 
     def get_products_by_categories_filters(self, category_codes=None, filter_codes=None, query=None):
         """
@@ -51,7 +55,7 @@ class ProductSystem:
         # TODO Change logic in order to find image separately
         products_set = Product.objects.filter(productimage__product_image_order_no=1). \
             values('product_id', 'product_name', 'product_description',
-                   'product_state_id', 'product_price', 'product_currency', 'product_slug', 'product_seo',
+                   'product_state_id', 'product_state__product_state_name', 'product_price', 'product_currency', 'product_slug', 'product_seo',
                    'active', 'visible', 'productimage__product_photo',
                    'created_date', 'updated_date')
 

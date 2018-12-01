@@ -58,7 +58,7 @@ def crop_image():
 
 
 def make_transparent():
-    infile='/Users/ij/Projects/development/Sell/media/product_photos/IMG_2201.JPG'
+    infile='/Sell/media/product_photos/IMG_2201.JPG'
     image = Image.open(infile)
     width, height = image.size
     new_width = 512
@@ -71,7 +71,7 @@ def make_transparent():
 
 
 def adjust():
-    infile = '/Users/ij/Projects/development/Sell/media/product_photos/IMG_2201.JPG'
+    infile = '/Sell/media/product_photos/IMG_2201.JPG'
     image = Image.open(infile)
     image = image.convert('RGBA')
     width, height = image.size

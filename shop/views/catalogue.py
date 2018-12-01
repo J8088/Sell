@@ -36,12 +36,17 @@ class Catalogue(View):
         site_name_set = SettingsSystem.get_settings('site.name')
         site_name = next(iter(list(map(lambda item: item.setting_value, site_name_set))), '')
 
+        footer_info_set = SettingsSystem.get_settings('footer.info')
+        footer_info = next(iter(list(map(lambda item: item.setting_value, footer_info_set))), '')
+
         title_seo_base_set = SettingsSystem.get_settings('title.seo.base')
         page_str = 'стор.{}'.format(page) if page else ''
-        title_seo_base = "{} - {}{}".format(next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name, page_str)
+        title_seo_base = "{} - {}{}".format(
+            next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name, page_str)
 
         description_seo_base_set = SettingsSystem.get_settings('description.seo.base')
-        description_seo_base = "{} - {}".format(next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''), site_name)
+        description_seo_base = "{} - {}".format(
+            next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''), site_name)
 
         keywords_seo_base_set = SettingsSystem.get_settings('keywords.seo.base')
         keywords_seo_base = "{}".format(
@@ -78,6 +83,7 @@ class Catalogue(View):
                'restricted': restricted,
                'phone_numbers': phone_numbers,
                'greetings': greetings,
+               'footer_info': footer_info,
                'query': query or '',
                'title_seo': title_seo_base,
                'description_seo': description_seo_base,

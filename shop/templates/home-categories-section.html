@@ -1,0 +1,35 @@
+<section>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 order-lg-12">
+      <div class="home-section-header">
+        {{ section_title }}
+      </div>
+    </div>
+  </div>
+  <div class="row products-grid">
+    <div class="col-xl-10 col-lg-10 order-lg-10">
+      <div class="row">
+        <div class="owl-carousel-categories owl-carousel owl-theme owl-dots-modern home-slider owl-loaded owl-drag" data="{{ button_class }}">
+          {% for category in categories %}
+            <div class="item">
+              <div class="product">
+                <div class="product-image">
+                  <a rel="canonical" href="/category/{{ category.category_code }}">
+                    <img src="/media/{{ category.category_img }}"
+                         alt="category" class="carousel-img-fluid">
+                  </a>
+                </div>
+                <div class="py-3 product-info">
+                  <h1 class="h6 carousel-info_text mb-1">
+                    <a rel="canonical" href="/category/{{ category.category_code }}"
+                       class="text-dark">{{ category.category_name }}</a>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

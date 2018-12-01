@@ -16,7 +16,7 @@ class Category(models.Model):
     category_parent_id = models.IntegerField(blank=True, null=True)
     category_name = models.CharField(max_length=500)
     category_code = models.CharField(unique=True, max_length=255, default=None)
-    category_img = models.CharField(max_length=1000, blank=True, null=True)
+    category_img = models.ImageField(upload_to='category_photos', blank=True, null=True)
     category_description = models.CharField(max_length=500)
     category_sector = models.CharField(max_length=100, blank=True, null=True)
     category_seo = models.CharField(max_length=500, blank=True, null=True)
@@ -167,3 +167,26 @@ class Settings(models.Model):
 
     def __str__(self):
         return '{} ------ {}'.format(self.setting_name, self.setting_code)
+
+
+class Carousel(models.Model):
+    carousel_id = models.AutoField(primary_key=True)
+    carousel_name = models.CharField(max_length=500)
+    carousel_description = models.TextField(blank=True, null=True)
+    carousel_photo = models.ImageField(upload_to='carousel_photos', default=None)
+    carousel_image_order_no = models.IntegerField(default=1)
+    carousel_link = models.CharField(max_length=500)
+    active = models.BooleanField(default=True)
+    visible = models.BooleanField(default=False)
+
+    def as_data(self):
+        """Return the ProductImage as a dict suitable for passing as kwargs.
+        """
+        data = model_to_dict(self)
+        return data
+
+    class Meta:
+        db_table = 'shop_carousel_photo'
+
+    def __str__(self):
+        return '{} ------ {}'.format(self.carousel_photo, self.carousel_name)

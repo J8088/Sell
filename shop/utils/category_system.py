@@ -5,12 +5,12 @@ class CategorySystem:
     def __init__(self, user=None):
         self.user = user
 
-    def get_categories(self):
+    def get_categories(self, visible=True):
         """
         Returns all parent categories
         :return: parent categories QuerySet
         """
-        return Category.objects.filter(category_parent_id__isnull=True, active=True, visible=True)
+        return Category.objects.filter(category_parent_id__isnull=True, active=True, visible=visible)
 
     def get_single_category_by_code(self, category_code):
         return Category.objects.filter(category_code__exact=category_code).first()

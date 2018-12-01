@@ -2,6 +2,7 @@
 {% load horizontal_menu from navigation %}
 {% load horizontal_secondary_menu from navigation %}
 {% load seo_header from seo %}
+{% load home_footer_section from home_components %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +58,7 @@
 
 
             <div class="top-bar-search">
-              <form id="searchForm" method="GET">
+              <form id="searchForm" action="/search" method="GET">
                 <div class="input-group input-group-search">
 
                   <input type="text"
@@ -83,7 +84,7 @@
       <div class="container-fluid">
         <div class="navbar-brand">
           <a rel="canonical" href="/">
-            <img src="{% static "img/omni.svg" %}" alt="">
+            <img src="{% static "img/OMNI.svg" %}" alt="">
           </a>
         </div>
 
@@ -110,5 +111,6 @@
 
 {% block content %}{% endblock content %}
 
+{% home_footer_section info=footer_info%}
 </body>
 </html>
