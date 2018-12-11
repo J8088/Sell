@@ -1,14 +1,12 @@
 from django.views.generic import View
 from django.template.response import TemplateResponse
 from django.conf import settings
-from ..utils.product_system import ProductSystem
-from ..utils.category_system import CategorySystem
 from ..utils.filters_system import FilterSystem
 from ..utils import get_paginator_items
-from ..utils.settings_system import SettingsSystem
+from ..utils.mixins import SystemMixin
 
 
-class Catalogue(View):
+class Catalogue(SystemMixin, View):
     template_name = 'catalogue.html'
 
     def get(self, request):
@@ -20,73 +18,82 @@ class Catalogue(View):
         :param category:
         :return:
         """
-        category_system = CategorySystem()
-        product_system = ProductSystem()
-        main_categories = category_system.get_categories()
         page = request.GET.get('page', None)
-
         query = self.request.GET.get('q')
 
-        phone_numbers_set = SettingsSystem.get_settings('phone.number')
-        phone_numbers = list(map(lambda num: num.setting_value, phone_numbers_set))
+        (title_seo_base, description_seo_base, keywords_seo_base) = self._get_seo(page, self.settings_cached_dict['site_name'])
 
-        greetings_set = SettingsSystem.get_settings('greeting')
-        greetings = list(map(lambda gr: gr.setting_value, greetings_set))
+        filters = self._get_checked_filters(request)
 
-        site_name_set = SettingsSystem.get_settings('site.name')
-        site_name = next(iter(list(map(lambda item: item.setting_value, site_name_set))), '')
+        products_paginated, page_range = self._get_products(
+            self.data_cached_dict['categories'], filters, query, page)
 
-        footer_info_set = SettingsSystem.get_settings('footer.info')
-        footer_info = next(iter(list(map(lambda item: item.setting_value, footer_info_set))), '')
+        primary_categories = self.__class__._get_categories_by_sector(
+            self.data_cached_dict['categories'], 'primary')
+        secondary_categories = self.__class__._get_categories_by_sector(
+            self.data_cached_dict['categories'], 'secondary')
 
-        title_seo_base_set = SettingsSystem.get_settings('title.seo.base')
-        page_str = 'стор.{}'.format(page) if page else ''
-        title_seo_base = "{} - {}{}".format(
-            next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name, page_str)
-
-        description_seo_base_set = SettingsSystem.get_settings('description.seo.base')
-        description_seo_base = "{} - {}".format(
-            next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''), site_name)
-
-        keywords_seo_base_set = SettingsSystem.get_settings('keywords.seo.base')
-        keywords_seo_base = "{}".format(
-            next(iter(list(map(lambda item: item.setting_value, keywords_seo_base_set))), ''))
-
-        """
-        filters for displaying in the menu
-        """
-        filters_with_groups = FilterSystem.get_filter_groups_with_filters_by_categories_dict()
-
-        """
-        filters for filtering products 
-        """
-        filters = FilterSystem.populate_filters_with_checked(filters_with_groups, request.GET)
-
-        if len(filters) == 0:
-            filter_objects = FilterSystem.get_filters_by_categories(
-                list(map(lambda cat: cat.category_code, main_categories)))
-            filters = list(map(lambda fl: fl.filter_code, filter_objects))
-
-        products = product_system.get_products_by_categories_filters(
-            list(map(lambda cat: cat.category_code, main_categories)),
-            filters, query=query)
-        products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
-        restricted = [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
-        primary_categories = [category for category in main_categories if category.category_sector == 'primary']
-        secondary_categories = [category for category in main_categories if category.category_sector == 'secondary']
         ctx = {'categories': primary_categories,
                'secondary_categories': secondary_categories,
                'products': products_paginated,
                'page_range': page_range,
-               'filters': filters_with_groups,
+               'filters': self.data_cached_dict['filters'],
                'currentCategory': None,
-               'restricted': restricted,
-               'phone_numbers': phone_numbers,
-               'greetings': greetings,
-               'footer_info': footer_info,
+               'restricted': self.__class__._get_restricted_items(),
+               'phone_numbers': self.settings_cached_dict['phone_numbers'],
+               'greetings': self.settings_cached_dict['greetings'],
+               'footer_info': self.settings_cached_dict['footer_info'],
                'query': query or '',
                'title_seo': title_seo_base,
                'description_seo': description_seo_base,
                'keywords_seo': keywords_seo_base,
                'og_title_seo': ''}
         return TemplateResponse(request, self.template_name, ctx)
+
+    def _get_seo(self, page, site_name):
+        seo_settings = self.seo_settings_cached_dict
+
+        title_seo_base_set = seo_settings['title.seo.base']
+        page_str = 'стор.{}'.format(page) if page else ''
+        title_seo_base = "{} - {}{}".format(
+            next(iter(list(map(lambda item: item.setting_value, title_seo_base_set))), ''), site_name, page_str)
+
+        description_seo_base_set = seo_settings['description.seo.base']
+        description_seo_base = "{} - {}".format(
+            next(iter(list(map(lambda item: item.setting_value, description_seo_base_set))), ''), site_name)
+
+        keywords_seo_base_set = seo_settings['keywords.seo.base']
+        keywords_seo_base = "{}".format(
+            next(iter(list(map(lambda item: item.setting_value, keywords_seo_base_set))), ''))
+
+        return title_seo_base, description_seo_base, keywords_seo_base
+
+    def _get_checked_filters(self, request):
+        filters = FilterSystem.populate_filters_with_checked(self.data_cached_dict['filters'], request.GET)
+
+        if len(filters) == 0:
+            categories = self.data_cached_dict['categories']
+            filter_objects = FilterSystem.get_filters_by_categories(
+                list(map(lambda cat: cat.category_code, categories)))
+            filters = list(map(lambda fl: fl.filter_code, filter_objects))
+
+        return filters
+
+    def _get_products(self, categories, filters, query, page):
+        """
+
+        :return:
+        """
+        products = self.product_system_ins.get_products_by_categories_filters(
+            list(map(lambda cat: cat.category_code, categories)),
+            filters, query=query)
+        products_paginated, page_range = get_paginator_items(products, settings.PAGINATE_BY, page)
+        return products_paginated, page_range
+
+    @classmethod
+    def _get_restricted_items(cls):
+        return [key for key, value in settings.DISPLAY_FEATURES_DICT.items() if not value]
+
+    @classmethod
+    def _get_categories_by_sector(cls, categories, sector_code):
+        return [category for category in categories if category.category_sector == sector_code]

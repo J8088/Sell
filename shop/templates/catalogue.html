@@ -22,13 +22,20 @@
               <div class="product">
                 <div class="product-image">
                   <a rel="canonical" href="/product/{{ product.product_id }}">
-                      <img src="/media/{{ product.productimage__product_photo }}"
-                           alt="product" class="img-fluid">
-                    </a>
+                    <img src="/media/{{ product.productimage__product_photo }}"
+                         alt="product" class="img-fluid">
+                  </a>
                 </div>
                 <div class="py-3 product-info">
-                  <h1 class="h6 text-uppercase product-info_text mb-1">
-                    <a rel="canonical" href="/product/{{ product.product_id }}" class="text-dark">{{ product.product_name }}</a>
+                  <h1 class="h6 product-info_text mb-1">
+                    <a rel="canonical" href="/product/{{ product.product_id }}" class="text-dark">
+                      <div>
+                        <span class="product-name-text">{{ product.product_primary_name }}</span>
+                      </div>
+                    </a>
+                    <div>
+                      <span class="text-muted">{{ product.product_name }}</span>
+                    </div>
                   </h1>
                   <div class="row pr-2 pl-2">
                     <div class="col-xl-6 col-lg-6 order-lg-6">
@@ -36,7 +43,7 @@
                       <span class="price">{{ product.product_currency | lower }}</span>
                     </div>
                     <div class="col-xl-6 col-lg-6 order-lg-6">
-                       <div class="instocktiny">{{ product.product_state__product_state_name}}</div>
+                      <div class="instocktiny">{{ product.product_state__product_state_name }}</div>
                     </div>
                   </div>
                 </div>
@@ -88,7 +95,7 @@
 
         {% vertical_menu items=verticalCategoriesTree current_category=currentCategory %}
 
-        {% vertical_filters items=filters current_category=currentCategory restricted=restricted%}
+        {% vertical_filters items=filters current_category=currentCategory restricted=restricted %}
 
       </div>
     </div>

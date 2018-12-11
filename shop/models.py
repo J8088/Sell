@@ -49,6 +49,7 @@ class ProductStates(models.Model):
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=500)
+    product_primary_name = models.CharField(max_length=500, default=None)
     product_code = models.CharField(unique=True, max_length=255, blank=True, null=True)
     product_description = models.TextField(blank=True, null=True)
     product_state = models.ForeignKey(ProductStates, on_delete=models.CASCADE, blank=True, null=True)

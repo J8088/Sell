@@ -35,7 +35,7 @@ class ProductSystem:
 
     def get_products_by_category(self, category_code):
         return Product.objects.filter(productimage__product_image_order_no=1,producttocategory__category__category_code=category_code).\
-            values('product_id', 'product_name', 'product_description',
+            values('product_id', 'product_name', 'product_primary_name', 'product_description',
                    'product_state_id', 'product_state__product_state_name', 'product_price', 'product_currency', 'product_slug', 'product_seo',
                    'active', 'visible', 'productimage__product_photo',
                    'created_date', 'updated_date')
@@ -54,7 +54,7 @@ class ProductSystem:
             filter_codes = []
         # TODO Change logic in order to find image separately
         products_set = Product.objects.filter(productimage__product_image_order_no=1). \
-            values('product_id', 'product_name', 'product_description',
+            values('product_id', 'product_name', 'product_primary_name', 'product_description',
                    'product_state_id', 'product_state__product_state_name', 'product_price', 'product_currency', 'product_slug', 'product_seo',
                    'active', 'visible', 'productimage__product_photo',
                    'created_date', 'updated_date')

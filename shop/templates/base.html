@@ -20,13 +20,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css"
         integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="{% static 'shop/dist/main.css' %}">
+
   <link rel="icon" href="/favicon.ico">
 
   {% block ga %}
     {% include "ga.html" %}
   {% endblock ga %}
 
-  <script src="{% static "js/shop/dist/bundle.js" %}"></script>
 </head>
 <body>
 {% block header %}
@@ -112,5 +113,7 @@
 {% block content %}{% endblock content %}
 
 {% home_footer_section info=footer_info%}
+
+<script src="{% static "shop/dist/main.js" %}"></script>
 </body>
 </html>

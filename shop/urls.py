@@ -19,7 +19,7 @@ else:
 
 # ''  (page-(\d+)/)?$  (?:page-(?P<page_number>\d+)/)?$  path('<category>/'...)
 urlpatterns = urls + [
-    path('', home.Home.as_view(), name='shop-home'),
+    # path('', home.Home.as_view(), name='shop-home'),
     re_path(r'^search/?$', catalogue.Catalogue.as_view(), name='shop-catalogue'),
     re_path(r'^category/(?P<category>[a-zA-Z0-9_.-]+)/?$', category.Category.as_view(), name='shop-category'),
     re_path(r'^product/(?P<product>[a-zA-Z0-9_.-]+)/?$', product.Product.as_view(), name='shop-product'),

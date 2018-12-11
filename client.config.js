@@ -1,20 +1,30 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
+
+const devMode = process.env.NODE_ENV !== 'production';
 
 
 module.exports = {
   entry: './shop/static/js/src/main.js',
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'shop/static/js/shop/dist')
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'shop/static/shop/dist')
   },
   module: {
     rules: [
       {
-        test: /\.(css|scss)$/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
-          {loader: "style-loader"},
-          {loader: "css-loader"},
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: path.resolve(__dirname, 'shop/static/shop/dist/css')
+            }
+          },
+          {
+            loader: "css-loader",
+          },
           {loader: "sass-loader"},
           {
             loader: 'postcss-loader',
@@ -57,5 +67,9 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
     }),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    })
   ],
 };

@@ -19,3 +19,4 @@ media
 package-lock.json
 int_tests.py
 test_imgs
+/shop/static/shop
