@@ -17,13 +17,25 @@ class SystemMixin:
         self.product_system_ins = ProductSystem()
         self.filter_system_ins = FilterSystem()
 
+        self.current_category_code = None
+        self.seo_settings = []
+
+    def set_current_category(self, category_code):
+        self.current_category_code = category_code
+
+    def set_seo_codes(self, *args):
+        self.seo_settings = args
+
     @cached_property
     def data_cached_dict(self):
         categories = self.category_system_ins.get_categories()
-        filters = self.filter_system_class.get_filter_groups_with_filters_by_categories_dict()
+        current_category = self.category_system_ins.\
+            get_single_category_by_code(self.current_category_code) if self.current_category_code else None
+        filters = self.filter_system_class.get_filter_groups_with_filters_by_categories_dict([current_category.category_code] if current_category else None)
         return {
             "categories": categories,
-            "filters": filters
+            "filters": filters,
+            "current_category": current_category
         }
 
     @cached_property
@@ -49,15 +61,11 @@ class SystemMixin:
 
     @cached_property
     def seo_settings_cached_dict(self):
-        title_seo_base_set = self.settings_system_class.get_settings('title.seo.base')
-        description_seo_base_set = self.settings_system_class.get_settings('description.seo.base')
-        keywords_seo_base_set = self.settings_system_class.get_settings('keywords.seo.base')
+        settings_dict = {}
+        for key in self.seo_settings:
+            settings_dict[key] = self.settings_system_class.get_settings(key)
 
-        return {
-            "title.seo.base": title_seo_base_set,
-            "description.seo.base": description_seo_base_set,
-            "keywords.seo.base": keywords_seo_base_set,
-        }
+        return settings_dict
 
 
 
