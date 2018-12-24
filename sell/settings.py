@@ -27,7 +27,11 @@ SECRET_KEY = '5j!by@r%79!t4v0)iy^(thh_@xasp*ljnjyp5+%c4l+wsseu1u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'localhost:8000'
+]
+
 
 PAGINATE_BY = 9
 
@@ -41,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'rest_framework',
+    'spaadmin',
     'shop',
 ]
 
@@ -48,12 +54,14 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CSRF_COOKIE_SECURE = True
+#https://dammit.nl/20141111-disabling-csrf-checking-in-django-rest-framework-to-enable-replay.html
 ROOT_URLCONF = 'sell.urls'
 
 TEMPLATES = [
@@ -133,11 +141,12 @@ USE_TZ = True
 
 # https://www.amazon.com/b/ref=sr_aj?node=2407760011&bbn=2407760011&ajr=0
 
+SPA_IMAGES_ROOT = os.path.join(PROJECT_ROOT, 'spaadmin/static/js/spaadmin/dist')
+
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-print("__file__={0}, ==> STATIC_ROOT => {1}".format(__file__, STATIC_ROOT))
 STATIC_URL = '/static/'
 
 PRODUCT_DETAILS = {

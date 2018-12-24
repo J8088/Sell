@@ -1,0 +1,11 @@
+{
+  "sidebar.products": "Products",
+  "sidebar.settings": "Settings",
+  "page.signInButton": "Login",
+  "page.signInTitle": "Dashboard",
+  "page.signInRememberMe": "Remember me",
+  "product.create": "Create",
+  "product.edit": "Edit",
+  "product.addNewProduct": "Add New",
+  "email.noMessage": "email.noMessage"
+}

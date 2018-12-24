@@ -35,6 +35,8 @@ urlpatterns = [
     re_path(r'^google-site-verification-file\.html$',
             lambda r: HttpResponse("google-site-verification: google-site-verification-file.html")),
     path('admin/', admin.site.urls),
+    path('spaadmin/', include('spaadmin.urls')),
+    path('api/', include('shop.web_services.urls')),
     re_path(r'^login/$', auth.Login.as_view(), name='login'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),

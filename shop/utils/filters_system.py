@@ -45,6 +45,10 @@ class FilterSystem:
         return FilterGroup.objects.all()
 
     @classmethod
+    def get_filters(cls):
+        return Filter.objects.all()
+
+    @classmethod
     def populate_filters_with_checked(cls, filters_with_groups, filters_query_dict):
         filter_codes = []
         for filter_group_dict in filters_with_groups:
