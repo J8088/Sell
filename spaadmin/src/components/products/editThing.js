@@ -36,18 +36,14 @@ export default class EditThing extends Component {
   };
 
   render() {
-    const {thing, handleSaveThing, handleImageChange, categories, filters} = this.props;
+    const {thing, handleSaveThing, handleImageChange, handleCloseThing, categories, filters} = this.props;
 
-
-    // const onSave = (e) => {
-    //   handleSaveThing(this.state.thing);
-    //   e.preventDefault();
-    // };
-
-    const deleteProduct = () => {
+    const closeProduct = () => {
+      handleCloseThing()
     };
 
-    const addProduct = () => {
+    const refreshProduct = (productId) => {
+      this.props.handleRefreshThing(productId);
     };
 
     const otherAttributes = () => {
@@ -61,11 +57,11 @@ export default class EditThing extends Component {
               <Icon type="check"/>{" "}
             </Button>
             <ClearButton
-              clearProduct={deleteProduct}
+              clearProduct={closeProduct}
               product={thing}
             />
-            <Button type="primary" onClick={addProduct} className="isoAddContactBtn">
-              <IntlMessages id="product.addNewProduct"/>
+            <Button type="primary" onClick={() => refreshProduct(thing.product_id)} className="isoAddContactBtn">
+              <IntlMessages id="product.refreshProduct"/>
             </Button>
           </div>
           <Scrollbar className="contactBoxScrollbar">

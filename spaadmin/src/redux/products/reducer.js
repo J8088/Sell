@@ -2,7 +2,7 @@ import actions from './actions';
 
 const initState = {
   products: [],
-  thing: {categories: [], filters:[], product_images:[]},
+  thing: {categories: [], filters: [], product_images: []},
   selectedProduct: null,
   categories: [],
   filters: [],
@@ -71,6 +71,13 @@ export default function reducer(state = initState, action) {
         error: false,
         thing: action.thing,
       };
+    case actions.SAVE_THING_SUCCESS_RESULT:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        thing: action.thing,
+      };
     case actions.FILTER_ATTRIBUTE:
       return {
         ...state,
@@ -89,7 +96,7 @@ export default function reducer(state = initState, action) {
     case actions.CREATE_THING:
       return {
         ...state,
-        thing: {categories: [], filters:[], product_images:[]},
+        thing: {categories: [], filters: [], product_images: []},
         editMode: action.editMode
       };
     case actions.EDIT_THING:

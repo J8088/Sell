@@ -41,10 +41,10 @@ export default function productsList(
             <p className="isoRecipents">{product.product_name}</p>
             <p className="isoReceiveDate">
               {product.updated_date}
-              </p>
+            </p>
             <p className="isoRecipents">
               {product.product_price} {product.product_currency}
-              </p>
+            </p>
           </div>
           <p className="isoSubject">{product.product_description}</p>
         </div>
@@ -53,7 +53,16 @@ export default function productsList(
   };
   return (
     <ProductListWrapper className="isoMailListWrapper">
-      {products.map((product) => renderSingleProduct(product))}
+      {products.sort((a, b) => {
+        if (a.product_id > b.product_id) {
+          return -1;
+        }
+        if (a.product_id < b.product_id) {
+          return 1;
+        }
+
+        return 0;
+      }).map((product) => renderSingleProduct(product))}
     </ProductListWrapper>
   );
 }

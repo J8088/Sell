@@ -130,6 +130,10 @@ const WDEditProductWrapper = styled.div`
           left: ${props => (props['data-rtl'] === 'rtl' ? '0' : 'inherit')};
         }
       }
+      
+      .isoInfoLabel-right{
+        margin-left: 25px;
+      }
 
       .isoInfoDetails {
         font-size: 14px;
@@ -149,7 +153,7 @@ const WDEditProductWrapper = styled.div`
       input {
         font-size: 14px;
         font-weight: 400;
-        color: ${palette('text', 2)};
+        color: ${palette('text', 5)};
         line-height: inherit;
         height: 36px;
         padding: 0 15px;
@@ -191,7 +195,7 @@ const WDEditProductWrapper = styled.div`
       textarea {
         font-size: 14px;
         font-weight: 400;
-        color: ${palette('text', 2)};
+        color: ${palette('text', 5)};
         line-height: 24px;
         padding: 10px 15px;
         margin: 0;

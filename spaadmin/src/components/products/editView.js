@@ -108,9 +108,29 @@ export default class extends Component {
         </div>
         <div className="isoContactInfoWrapper">
 
-          <div className="isoContactCardInfos" key="prodId0">
-            <p className="isoInfoLabel">Номер</p>
-            <p className="isoInfoDetails">{product.product_id || -1}</p>
+          <Row>
+            <Col span={5}>
+              <div className="isoContactCardInfos" key="prodId0">
+                <p className="isoInfoLabel">Номер</p>
+                <p className="isoInfoDetails">{product.product_id || -1}</p>
+              </div>
+            </Col>
+            <Col span={8}>
+              <div className="isoContactCardInfos" key="prodId0">
+                <p className="isoInfoLabel">Дата</p>
+                <p className="isoInfoDetails">{product.updated_date}</p>
+              </div>
+            </Col>
+          </Row>
+
+          <div className="isoContactCardInfos" key="prodPrimaryName0">
+            <p className="isoInfoLabel">Основна Назва</p>
+            <Input
+              placeholder="Основна Назва"
+              name="product_primary_name"
+              value={product.product_primary_name}
+              onChange={event => handleInputChange(event)}
+            />
           </div>
 
           <div className="isoContactCardInfos" key="prodName0">
@@ -135,49 +155,81 @@ export default class extends Component {
             />
           </div>
 
-          <div className="isoContactCardInfos" key="prodPrice0">
-            <p className="isoInfoLabel">Ціна</p>
-            <Input
-              placeholder="Ціна"
-              name="product_price"
-              value={product.product_price}
-              onChange={event => handleInputChange(event)}
-            />
-          </div>
+          <Row>
+            <Col span={6}>
+              <div className="isoContactCardInfos" key="prodPrice0">
+                <p className="isoInfoLabel">Ціна</p>
+                <Input
+                  placeholder="Ціна"
+                  name="product_price"
+                  value={product.product_price}
+                  onChange={event => handleInputChange(event)}
+                />
+              </div>
+            </Col>
+            <Col span={7}>
+              <div className="isoContactCardInfos" key="prodCurrency0">
+                <p className="isoInfoLabel isoInfoLabel-right">Валюта</p>
+                <Input
+                  placeholder="Валюта"
+                  name="product_currency"
+                  value={product.product_currency}
+                  onChange={event => handleInputChange(event)}
+                />
+              </div>
+            </Col>
+            <Col span={7}>
+              <div className="isoContactCardInfos" key="prodslug0">
+                <p className="isoInfoLabel isoInfoLabel-right">Артикул</p>
+                <Input
+                  placeholder="Артикул"
+                  name="product_slug"
+                  value={product.product_slug}
+                  onChange={event => handleInputChange(event)}
+                />
+              </div>
+            </Col>
+          </Row>
 
-          <div className="isoContactCardInfos" key="prodCurrency0">
-            <p className="isoInfoLabel">Валюта</p>
-            <Input
-              placeholder="Валюта"
-              name="product_currency"
-              value={product.product_currency}
-              onChange={event => handleInputChange(event)}
-            />
-          </div>
-
-          <div className="isoContactCardInfos" key="prodslug0">
-            <p className="isoInfoLabel">Артикул</p>
-            <Input
-              placeholder="Артикул"
-              name="product_slug"
-              value={product.product_slug}
-              onChange={event => handleInputChange(event)}
-            />
-          </div>
-
-          <div className="isoContactCardInfos" key="prodState0">
-            <p className="isoInfoLabel">Статус</p>
-            <Input
-              placeholder="Статус"
-              name="product_state"
-              value={product.product_state}
-              onChange={event => handleInputChange(event)}
-            />
-          </div>
+          <Row>
+            <Col span={5}>
+              <div className="isoContactCardInfos" key="prodAvtive0">
+                <p className="isoInfoLabel">Активний</p>
+                <Checkbox checked={product.active}
+                          name="active"
+                          value="active"
+                          onChange={event => handleInputChange(event)}
+                />
+              </div>
+            </Col>
+            <Col span={5}>
+              <div className="isoContactCardInfos" key="prodVisible0">
+                <p className="isoInfoLabel">Опублікований</p>
+                <Checkbox checked={product.visible}
+                          name="visible"
+                          value="visible"
+                          onChange={event => handleInputChange(event)}
+                />
+              </div>
+            </Col>
+            <Col span={7}>
+              <div className="isoContactCardInfos" key="prodState0">
+                <p className="isoInfoLabel">Статус</p>
+                <Input
+                  placeholder="Статус"
+                  name="product_state"
+                  value={product.product_state}
+                  onChange={event => handleInputChange(event)}
+                />
+              </div>
+            </Col>
+          </Row>
 
           <div className="isoContactCardInfos" key="prodSeo0">
             <p className="isoInfoLabel">СЕО</p>
-            <Input
+            <Textarea
+              type="textarea"
+              rows={2}
               value={product.product_seo}
               placeholder="СЕО"
               name="product_seo"
@@ -185,23 +237,6 @@ export default class extends Component {
             />
           </div>
 
-          <div className="isoContactCardInfos" key="prodAvtive0">
-            <p className="isoInfoLabel">Активний</p>
-            <Checkbox checked={product.active}
-                      name="active"
-                      value="active"
-                      onChange={event => handleInputChange(event)}
-            />
-          </div>
-
-          <div className="isoContactCardInfos" key="prodVisible0">
-            <p className="isoInfoLabel">Опублікований</p>
-            <Checkbox checked={product.visible}
-                      name="visible"
-                      value="visible"
-                      onChange={event => handleInputChange(event)}
-            />
-          </div>
 
           <div className="isoContactCardInfos" key="prodCategories">
             <p className="isoInfoLabel">Категорії</p>

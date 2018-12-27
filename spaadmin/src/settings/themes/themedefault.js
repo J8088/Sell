@@ -77,6 +77,7 @@ theme.palette = {
     '#979797', // 2: Text
     '#797979', // 3: TextDark
     '#6a6c6a', // 4: Heading Lighten 22%
+    '#000000', // 5: ExtraTextDark
   ],
   border: [
     '#e9e9e9', // 0: Border

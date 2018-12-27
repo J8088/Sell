@@ -57,7 +57,7 @@ export default function productstags(
   };
   return (
     <ProductsTagsList className="isoMailTagList">
-      <p className="isoSectionLabel">Label</p>
+      <p className="isoSectionLabel">Templates</p>
       {Object.keys(Tags).map((tag, index) => renderSingleTag(tag, index))}
     </ProductsTagsList>
   );

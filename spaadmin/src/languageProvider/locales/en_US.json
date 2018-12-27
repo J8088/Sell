@@ -7,5 +7,7 @@
   "product.create": "Create",
   "product.edit": "Edit",
   "product.addNewProduct": "Add New",
-  "email.noMessage": "email.noMessage"
+  "product.refreshProduct": "Refresh",
+  "email.noMessage": "email.noMessage",
+  "product.chooseProduct": "Choose Product"
 }

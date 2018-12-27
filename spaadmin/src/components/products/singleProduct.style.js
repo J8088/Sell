@@ -80,7 +80,7 @@ const SingleProductContent = styled.div`
       .sellSingleProductInfoDetails {
         font-size: 14px;
         font-weight: 400;
-        color: ${palette('text', 2)};
+        color: ${palette('text', 5)};
         line-height: 1.5;
         margin: 0;
         text-align: ${props =>

@@ -45,17 +45,43 @@ class DesktopView extends Component {
   }
 
 
+  onRefresh = (productId) => {
+    this.props.fetchCategories();
+    this.props.fetchFilters();
+    this.props.fetchProduct(productId);
+  };
+
+
   onInputChange = (target) => {
     const {thing} = Object.assign({}, this.props);
-    const {name, value, checked} = target;
+    const {name, value, checked, type} = target;
 
-    if (name) thing[name] = value;
+    if (name && type !== 'checkbox') {
+      thing[name] = value;
+    }
+
+    if (name && type === 'checkbox') {
+      thing[name] = checked;
+    }
 
     this.props.update(thing);
   };
 
-  onSave = () => {
-    this.props.saveThing(this.props.thing);
+  onSave = (e) => {
+    e.preventDefault();
+    const thing = Object.assign({}, this.props.thing);
+    delete thing.diffFileList;
+    this.props.saveThing(thing);
+    this.props.fetchProducts();
+    this.props.fetchCategories();
+    this.props.fetchFilters();
+  };
+
+  onClose = () => {
+    this.props.fetchProducts();
+    this.props.fetchCategories();
+    this.props.fetchFilters();
+    this.props.editThing(false);
   };
 
   onFiltersCheckBoxChange = (target) => {
@@ -109,8 +135,8 @@ class DesktopView extends Component {
 
         thing.product_images = thing.product_images
           .filter((i) => {
-          return i.product_image_id !== ((file.response && file.response.product_image_id) || file.uid);
-        });
+            return i.product_image_id !== ((file.response && file.response.product_image_id) || file.uid);
+          });
 
         thing.diffFileList = fileList;
         this.props.update(thing);
@@ -124,7 +150,7 @@ class DesktopView extends Component {
       thing.diffFileList = fileList;
     }
 
-    if(file.status === "done"){
+    if (file.status === "done") {
       const {thing} = Object.assign({}, this.props);
       thing.product_images.push(file.response);
     }
@@ -155,7 +181,7 @@ class DesktopView extends Component {
 
     let singleProductComponent = (
       <p className="isoNoMailMsg" key="noProdMessage">
-        <IntlMessages id="email.noMessage"/>
+        <IntlMessages id="product.chooseProduct"/>
       </p>
     );
 
@@ -218,6 +244,8 @@ class DesktopView extends Component {
                 <EditThing
                   thing={thing}
                   handleSaveThing={this.onSave}
+                  handleCloseThing={this.onClose}
+                  handleRefreshThing={this.onRefresh}
                   handleImageChange={this.onImageChange}
                   handleInputChange={this.onInputChange}
                   handleFiltersCheckBoxChange={this.onFiltersCheckBoxChange}

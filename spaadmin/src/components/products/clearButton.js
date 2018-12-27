@@ -18,11 +18,11 @@ export default class extends Component {
     }
     return (
       <Popconfirm
-        title={`Sure to delete ${name}?`}
-        okText="DELETE"
+        title={`Sure to close ${name}?`}
+        okText="CLOSE"
         cancelText="No"
         onConfirm={() => {
-          notification('error', `${name} Deleted`, '');
+          notification('error', `${name} Closed`, '');
           clearProduct(product.product_id);
         }}
       >

@@ -2,13 +2,7 @@ import React from 'react';
 import ProductBucket from './productsBuckets.style';
 
 const buckets = [
-  'All products',
-  'Sent',
-  'Drafts',
-  'Trash',
-  'Important',
-  'spam',
-  'Starred',
+  'All products'
 ];
 
 function getUnread(mails) {

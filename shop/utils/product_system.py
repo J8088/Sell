@@ -1,6 +1,6 @@
 import operator
 from functools import reduce
-from django.db.models import Q
+from django.db.models import Q, Subquery, OuterRef
 from shop.models import Product, ProductImage, Category, Filter
 from shop.utils.category_system import CategorySystem
 
@@ -34,11 +34,13 @@ class ProductSystem:
         return Product.objects.filter(category__category_id__in=category_ids)
 
     def get_products_by_category(self, category_code):
+        product_images = ProductImage.objects.filter(product=OuterRef('pk')).order_by('product_image_id')
+        product_image_subquery = Subquery(product_images.values('product_photo')[:1])
+
         return Product.objects.filter(productimage__product_image_order_no=1,producttocategory__category__category_code=category_code).\
             values('product_id', 'product_name', 'product_primary_name', 'product_description',
                    'product_state_id', 'product_state__product_state_name', 'product_price', 'product_currency', 'product_slug', 'product_seo',
-                   'active', 'visible', 'productimage__product_photo',
-                   'created_date', 'updated_date')
+                   'active', 'visible', 'created_date', 'updated_date').annotate(product_photo=product_image_subquery)
 
     def get_products_by_categories_filters(self, category_codes=None, filter_codes=None, query=None):
         """
@@ -53,11 +55,16 @@ class ProductSystem:
         if filter_codes is None:
             filter_codes = []
         # TODO Change logic in order to find image separately
-        products_set = Product.objects.filter(productimage__product_image_order_no=1). \
+
+        product_images = ProductImage.objects.filter(product=OuterRef('pk')).order_by('product_image_id')
+        product_image_subquery = Subquery(product_images.values('product_photo')[:1])
+
+        print('!@@@@@@@@')
+
+        products_set = Product.objects. \
             values('product_id', 'product_name', 'product_primary_name', 'product_description',
                    'product_state_id', 'product_state__product_state_name', 'product_price', 'product_currency', 'product_slug', 'product_seo',
-                   'active', 'visible', 'productimage__product_photo',
-                   'created_date', 'updated_date')
+                   'active', 'visible', 'created_date', 'updated_date').annotate(product_photo=product_image_subquery)
 
         if len(category_codes) > 0:
             products_set = products_set.filter(producttocategory__category__category_code__in=category_codes)
@@ -80,6 +87,8 @@ class ProductSystem:
             )
 
         products_set = products_set.order_by('-updated_date')
+
+        print("__file__={0}, ==> products_set.query => {1}".format(__file__, products_set.query))
 
         return products_set
 
